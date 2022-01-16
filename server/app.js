@@ -1,9 +1,22 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+
+//create server
 const app = express();
 
-app.listen(process.env.PORT || process.env.PORT_DEV, () => {
-	console.log(
-		"App listening on port " + (process.env.PORT || process.env.PORT_DEV)
-	);
-});
+//connect to MongoDB
+const port = process.env.PORT || process.env.PORT_DEV;
+const dbURI = process.env.MONGODB_URI || process.env.MONGODB_URI_DEV;
+
+mongoose
+	.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+	.then(() => {
+		console.log("Connected to MongoDB");
+		app.listen(port, () => {
+			console.log("App listening on port " + port);
+		});
+	})
+	.catch((err) => {
+		console.log(err);
+	});
