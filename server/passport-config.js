@@ -1,5 +1,8 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const passportJWT = require("passport-jwt");
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJWT;
 const bcrypt = require("bcrpytjs");
 const User = require("./models/user");
 
@@ -18,3 +21,12 @@ passport.use(
 		});
 	})
 );
+
+passport.use(
+	new JWTStrategy({
+		jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+		secret: process.env.JWT_SECRET_DEV,
+	})
+);
+
+module.exports = passport;
