@@ -1,26 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
+const authController = require("../controllers/auth");
 
-router.get("/", (res, req) => {
+router.get("/", (req, res) => {
 	res.json({ message: "Welcome to the API" });
 });
 
-router.get("/api/login", (req, res) => {
-	res.json({ message: "Send username and password to login" });
-});
+router.get("/api/login", authController.login_GET);
+router.post("/api/login", authController.login_POST);
 
-router.post("/api/login", (req, res, next) => {
-	passport.authenticate("local", { session: false }, (err, user, info) => {
-		if (err || !user)
-			return res.status(400).json({ message: "Error authenticating", user });
+router.get("/api/signup", authController.signup_GET);
+router.post("/api/signup", authController.signup_POST);
 
-		req.login(user, { session: false }, (err) => {
-			if (err) res.send(err);
-		});
-
-		const token = jwt.sign(user, process.env.JWT_SECRET_DEV);
-		return res.json({ user, token });
-	})(req, res);
-});
+module.exports = router;

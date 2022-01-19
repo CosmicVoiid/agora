@@ -1,8 +1,10 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
-require("passport-config");
+const passport = require("./passport-config");
 
 //create server
 const app = express();
@@ -23,4 +25,7 @@ mongoose
 		console.log(err);
 	});
 
+app.use(morgan("dev"));
+app.use(passport.initialize());
+app.use(bodyParser.json());
 app.use("/", indexRouter);
