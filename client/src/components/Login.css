@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Philosopher:wght@700&family=Source+Sans+3&display=swap");
+
+:root {
+}
+
+.login-container {
+	background: url("../images/agora-login.jpg") no-repeat bottom right;
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
+}
+
+.login-container__details {
+	height: 100vh;
+	max-width: 20vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #ffecdd;
+}
+
+.main-header {
+	font-family: "Philosopher", sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 3.5vw;
+	line-height: 4.5rem;
+	color: #2f3d58;
+	margin-top: 5rem;
+}
+
+.secondary-header {
+	font-family: "Source Sans 3", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 2vw;
+	line-height: 2.9rem;
+	color: #2f3d58;
+	margin-top: 1.5rem;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 5rem;
+	align-items: center;
+}
+
+.login-form > input {
+	border: none;
+	border-bottom: 1px solid black;
+	margin: 1.5em;
+	background-color: inherit;
+	font-size: 0.8vw;
+	text-align: center;
+}
+
+.login-form > input:focus {
+	border-bottom: 3px solid black;
+	outline: none;
+}
+
+.btn {
+	width: 30%;
+	border-radius: 8px;
+	font-size: 0.8vw;
+}
