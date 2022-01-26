@@ -10,18 +10,21 @@ passport.use(
 	new LocalStrategy(
 		{ usernameField: "email", passwordField: "password" },
 		function verify(email, password, done) {
+			console.log("used");
 			User.findOne({ email: email }, (err, user) => {
 				if (err) {
 					return done(err);
 				}
 				if (!user) {
-					return done(null, false, { message: "Incorrect email" });
+					return done(null, false, { message: "Incorrect email or password" });
 				}
 				bcrypt.compare(password, user.password, (err, res) => {
 					if (res) {
 						return done(null, user);
 					} else {
-						return done(null, false, { message: "Incorrect password" });
+						return done(null, false, {
+							message: "Incorrect email or password",
+						});
 					}
 				});
 			});

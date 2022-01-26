@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const { body, validationResult } = require("express-validator");
+const { body, check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
@@ -11,12 +11,13 @@ exports.login_GET = (req, res) => {
 exports.login_POST = (req, res, next) => {
 	passport.authenticate("local", { session: false }, (err, user, info) => {
 		if (err || !user) {
-			return res.status(400).json({ message: "Error authenticating", user });
+			return res
+				.status(400)
+				.json({ message: "Error authenticating", user, info: info.message });
 		}
 		req.login(user, { session: false }, (err) => {
 			if (err) res.send(err);
 		});
-		console.log(user);
 
 		const token = jwt.sign(
 			{ user },
@@ -42,10 +43,18 @@ exports.signup_POST = [
 		.isLength({ min: 1 })
 		.escape(),
 	body("email", "Email must not be empty").trim().isLength({ min: 1 }).escape(),
+	body("email", "Must enter a valid email address").isEmail(),
 	body("password", "Password must not be empty")
 		.trim()
 		.isLength({ min: 1 })
 		.escape(),
+	body("password_confirm", "Passwords must match")
+		.trim()
+		.isLength({ min: 1 })
+		.escape(),
+	check("password_confirm", "Passwords must match").custom(
+		(value, { req }) => value === req.body.password
+	),
 
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -57,30 +66,45 @@ exports.signup_POST = [
 			});
 		}
 
-		bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
-			if (err) return res.sendStatus(400);
-
-			const user = new User({
-				first_name: req.body.first_name,
-				last_name: req.body.last_name,
-				email: req.body.email,
-				password: hashedPassword,
-			});
-
-			user.save((err, result) => {
-				if (err) {
-					res.json({
-						message: "Errors with saving to database",
-						errors: err,
-					});
-					return next(err);
-				}
-
-				res.json({
-					message: "Successfully stored to database",
-					result: user,
+		User.findOne({ email: req.body.email }, (err, user) => {
+			console.log(user);
+			if (err) {
+				return res.json({
+					message: "There are errors with your request",
+					errors: err,
 				});
-			});
+			}
+			if (user) {
+				return res.json({
+					message: "This email address is already in use",
+				});
+			} else {
+				bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+					if (err) return res.sendStatus(400);
+
+					const user = new User({
+						first_name: req.body.first_name,
+						last_name: req.body.last_name,
+						email: req.body.email,
+						password: hashedPassword,
+					});
+
+					user.save((err, result) => {
+						if (err) {
+							res.json({
+								message: "Errors with saving to database",
+								errors: err,
+							});
+							return next(err);
+						}
+
+						res.json({
+							message: "Successfully stored to database",
+							result: user,
+						});
+					});
+				});
+			}
 		});
 	},
 ];
