@@ -6,14 +6,14 @@
 	--clr-tertiary: #fdd3b4;
 }
 
-.login-container {
+.signup-container {
 	background: url("../images/agora-login.jpg") no-repeat bottom right;
 	background-size: cover;
 	width: 100vw;
 	height: 100vh;
 }
 
-.login-container__details {
+.signup-container__details {
 	height: 100vh;
 	max-width: 20vw;
 	display: flex;
@@ -50,14 +50,24 @@
 	margin-top: 1rem;
 }
 
-.login-form {
+.error {
+	border-bottom: 1px solid red !important;
+	transition: border-bottom 75ms !important;
+}
+
+.error:focus {
+	border-bottom: 3px solid red !important;
+	outline: none;
+}
+
+.signup-form {
 	display: flex;
 	flex-direction: column;
-	margin-top: 5rem;
+	margin-top: 3.5rem;
 	align-items: center;
 }
 
-.login-form > input {
+.signup-form > input {
 	border: none;
 	border-bottom: 1px solid var(--clr-secondary);
 	margin: 1.5em;
@@ -68,7 +78,7 @@
 	transition: border-bottom 75ms;
 }
 
-.login-form > input:focus {
+.signup-form > input:focus {
 	border-bottom: 3px solid var(--clr-secondary);
 	outline: none;
 }
@@ -81,7 +91,7 @@
 	padding: 0.3em;
 	color: var(--clr-secondary);
 	background-color: var(--clr-tertiary);
-	margin-top: 1.5rem;
+	margin-top: 1rem;
 	font-family: "Source Sans 3", sans-serif;
 }
 
@@ -89,14 +99,20 @@
 	cursor: pointer;
 }
 
-.error-text {
+.error-list {
 	margin-top: 1.5rem;
 	color: var(--clr-secondary);
 	font-family: "Source Sans 3", sans-serif;
 	padding-left: 0;
 }
 
-.signup-link {
-	font-size: 0.8rem;
+.login-link {
 	margin-top: 1rem;
+	font-size: 0.8rem;
+}
+
+.success-msg {
+	margin-top: 1rem;
+	font-size: 1.1rem;
+	font-family: "Source Sans 3", sans-serif;
 }
