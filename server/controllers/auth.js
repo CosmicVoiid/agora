@@ -77,6 +77,9 @@ exports.signup_POST = [
 			if (user) {
 				return res.json({
 					message: "This email address is already in use",
+					errors: [
+						{ msg: "This email address is already in use", param: "email" },
+					],
 				});
 			} else {
 				bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
