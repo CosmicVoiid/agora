@@ -3,6 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const bcrypt = require("bcryptjs");
 const User = require("./models/user");
 
@@ -52,5 +53,46 @@ passport.use(
 		}
 	)
 );
+
+passport.use(
+	new GoogleStrategy(
+		{
+			clientID: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+			callbackURL: "http://localhost:5000/auth/google/callback",
+		},
+		function (accessToken, refreshToken, profile, cb) {
+			User.findOne({ email: profile._json.email }, (err, user) => {
+				if (err) {
+					return cb(err, false);
+				}
+				if (user) {
+					return cb(null, user);
+				} else {
+					const newUser = new User({
+						first_name: profile._json.given_name,
+						last_name: profile._json.family_name,
+						email: profile._json.email,
+						profile_picture_url: profile._json.picture,
+					}).save((error, result) => {
+						if (error) {
+							return cb(error, false);
+						} else {
+							return cb(null, result);
+						}
+					});
+				}
+			});
+		}
+	)
+);
+
+passport.serializeUser((user, done) => {
+	done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+	done(null, user);
+});
 
 module.exports = passport;
