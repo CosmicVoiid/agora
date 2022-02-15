@@ -1,5 +1,6 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 import "./Signup.css";
 
 function Signup() {
@@ -11,6 +12,7 @@ function Signup() {
 	const [errorMessage, setErrorMessage] = useState([]);
 	const [inputError, setInputError] = useState([]);
 	const [formSuccess, setFormSuccess] = useState(false);
+	const { user } = useContext(UserContext);
 	const navigate = useNavigate();
 
 	const changeFirstName = (e) => {
@@ -108,6 +110,12 @@ function Signup() {
 			alert(err);
 		}
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate("/home");
+		}
+	}, [user, navigate]);
 
 	return (
 		<div className="signup-container">
