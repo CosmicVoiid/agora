@@ -40,7 +40,9 @@ passport.use(
 			secretOrKey: process.env.JWT_SECRET || process.env.JWT_SECRET_DEV,
 		},
 		function (jwtPayload, done) {
-			User.findOne({ id: jwtPayload.sub }, function (err, user) {
+			User.findOne({ id: jwtPayload.user._id }, function (err, user) {
+				console.log("this is user");
+				console.log(user);
 				if (err) {
 					return done(err, false);
 				}
