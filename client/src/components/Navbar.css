@@ -1,0 +1,35 @@
+:root {
+	--primary-clr: #d6a37c;
+	--secondary-clr: #2f3d58;
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1rem 1rem;
+	background-color: var(--primary-clr);
+	min-height: 4vh;
+	height: 4vh;
+	max-width: 100vw;
+}
+
+.navbar__inputs {
+	display: flex;
+	align-items: center;
+}
+
+.search-icon {
+	color: var(--secondary-clr);
+	width: 75%;
+}
+
+.btn-search {
+	background-color: inherit;
+	border: none;
+	padding: 0 !important;
+}
+
+.btn-search:hover {
+	cursor: pointer;
+}

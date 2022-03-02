@@ -36,7 +36,7 @@ function Login() {
 				setErrorMessage(userData.info);
 			} else {
 				console.log(userData);
-				localStorage.setItem("token", JSON.stringify(userData.token));
+				localStorage.setItem("agora_token", JSON.stringify(userData.token));
 				setUser(userData);
 			}
 		} catch (err) {
@@ -53,37 +53,37 @@ function Login() {
 	}, [errorMessage]);
 
 	useEffect(() => {
-		if (user !== null) {
-			navigate("/home");
-		}
-	}, [user, navigate]);
+		console.log(localStorage.getItem("agora_token"));
+		if (localStorage.getItem("agora_token") !== null) {
+			const getUser = async (token) => {
+				try {
+					const response = await fetch("http://localhost:5000/user", {
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+						credentials: "include",
+					});
 
-	useEffect(() => {
-		const isGoogleAuth = async () => {
-			try {
-				const response = await fetch("http://localhost:5000/login/success", {
-					method: "GET",
-					credentials: "include",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
-
-				const userData = await response.json();
-				console.log(userData);
-				if (!userData.user) {
-					console.log(userData.message);
-				} else {
+					const userData = await response.json();
 					console.log(userData);
-					localStorage.setItem("token", JSON.stringify(userData.token));
-					setUser(userData);
+					if (userData.success) {
+						navigate("/home");
+						return;
+					}
+				} catch (err) {
+					console.log(err);
 				}
-			} catch (err) {
-				return;
-			}
-		};
-		isGoogleAuth();
+			};
+
+			const bearerToken = localStorage
+				.getItem("agora_token")
+				.replace(/['"]+/g, "");
+
+			getUser(bearerToken);
+		}
 	}, []);
 
 	return (

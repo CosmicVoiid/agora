@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./components/Homepage";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import Homepage from "./pages/Homepage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import { UserContext } from "./UserContext";
 
 function App() {
