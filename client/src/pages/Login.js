@@ -84,7 +84,7 @@ function Login() {
 
 			getUser(bearerToken);
 		}
-	}, []);
+	}, [user]);
 
 	return (
 		<div className="login-container">
