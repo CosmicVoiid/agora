@@ -32,13 +32,10 @@ router.get(
 	}),
 	(req, res, next) => {
 		const googleUser = req.user;
-		console.log(googleUser);
-		console.log("this ran");
 		const token = jwt.sign(
 			{ user: googleUser },
 			process.env.JWT_SECRET || process.env.JWT_SECRET_DEV
 		);
-		console.log(token);
 		res
 			.cookie("jwt", token, { httpOnly: true })
 			.redirect(`${process.env.CLIENT_URL}/home`);
@@ -48,23 +45,6 @@ router.get(
 router.get("/login/failed", (req, res) => {
 	return res.status(401).json({ message: "failed", success: false });
 });
-
-// router.get("/login/success", (req, res) => {
-// 	console.log(req.user);
-// 	if (req.user) {
-// 		const googleUser = req.user;
-// 		const token = jwt.sign(
-// 			{ user: googleUser },
-// 			process.env.JWT_SECRET || process.env.JWT_SECRET_DEV
-// 		);
-// 		console.log(token);
-// 		return res
-// 			.status(200)
-// 			.json({ message: "successful", user: googleUser, token });
-// 	} else {
-// 		return res.status(401).json({ message: "failed" });
-// 	}
-// });
 
 //CRUD routes
 router.get(

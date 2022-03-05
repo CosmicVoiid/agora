@@ -29,17 +29,9 @@ mongoose
 		console.log(err);
 	});
 
-// app.use(
-// 	session({
-// 		secret: process.env.SESSION_SECRET,
-// 		resave: false,
-// 		saveUninitialized: false,
-// 	})
-// );
-
+//middleware
 app.use(cookieParser());
 app.use(passport.initialize());
-// app.use(passport.session());
 app.use(
 	cors({
 		origin: "http://localhost:3000",

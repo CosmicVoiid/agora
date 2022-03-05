@@ -11,7 +11,6 @@ passport.use(
 	new LocalStrategy(
 		{ usernameField: "email", passwordField: "password" },
 		function verify(email, password, done) {
-			console.log("used");
 			User.findOne({ email: email }, (err, user) => {
 				if (err) {
 					return done(err);
@@ -37,8 +36,6 @@ const cookieExtractor = (req) => {
 	let token = null;
 	if (req && req.cookies) {
 		token = req.cookies["jwt"];
-		console.log("this is the return token");
-		console.log(token);
 	}
 	return token;
 };
@@ -50,10 +47,7 @@ passport.use(
 			secretOrKey: process.env.JWT_SECRET || process.env.JWT_SECRET_DEV,
 		},
 		function (jwtPayload, done) {
-			console.log(jwtPayload);
 			User.findById(jwtPayload.user._id, function (err, user) {
-				console.log("this is user");
-				console.log(user);
 				if (err) {
 					return done(err, false);
 				}
@@ -99,13 +93,5 @@ passport.use(
 		}
 	)
 );
-
-// passport.serializeUser((user, done) => {
-// 	done(null, user);
-// });
-
-// passport.deserializeUser((user, done) => {
-// 	done(null, user);
-// });
 
 module.exports = passport;
