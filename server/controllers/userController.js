@@ -4,7 +4,7 @@ const { body, check, validationResult } = require("express-validator");
 const User = require("../models/user");
 
 exports.user_GET = (req, res, next) => {
-	console.log(req.user);
+	console.log("hi");
 	if (req.user) {
 		res.json({ user: req.user, success: true });
 	} else {

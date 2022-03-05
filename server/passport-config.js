@@ -33,14 +33,25 @@ passport.use(
 	)
 );
 
+const cookieExtractor = (req) => {
+	let token = null;
+	if (req && req.cookies) {
+		token = req.cookies["jwt"];
+		console.log("this is the return token");
+		console.log(token);
+	}
+	return token;
+};
+
 passport.use(
 	new JWTStrategy(
 		{
-			jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+			jwtFromRequest: cookieExtractor,
 			secretOrKey: process.env.JWT_SECRET || process.env.JWT_SECRET_DEV,
 		},
 		function (jwtPayload, done) {
-			User.findOne({ id: jwtPayload.user._id }, function (err, user) {
+			console.log(jwtPayload);
+			User.findById(jwtPayload.user._id, function (err, user) {
 				console.log("this is user");
 				console.log(user);
 				if (err) {

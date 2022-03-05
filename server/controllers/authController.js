@@ -15,15 +15,16 @@ exports.login_POST = (req, res, next) => {
 				.status(400)
 				.json({ message: "Error authenticating", user, info: info.message });
 		}
-		req.login(user, { session: false }, (err) => {
-			if (err) res.send(err);
-		});
+		// req.login(user, { session: false }, (err) => {
+		// 	if (err) res.send(err);
+		// });
 
 		const token = jwt.sign(
 			{ user },
 			process.env.JWT_SECRET || process.env.JWT_SECRET_DEV
 		);
-		return res.json({ user, token });
+		// return res.json({ user, token });
+		return res.status(200).cookie("jwt", token, { httpOnly: true }).end();
 	})(req, res, next);
 };
 

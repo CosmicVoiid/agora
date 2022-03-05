@@ -7,6 +7,7 @@ function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const [loggedIn, setLoggedIn] = useState(false);
 	const { user, setUser } = useContext(UserContext);
 	const navigate = useNavigate();
 
@@ -31,15 +32,18 @@ function Login() {
 				body: JSON.stringify({ email, password }),
 			});
 
-			const userData = await response.json();
-			if (!userData.user) {
+			// const userData = await response.json();
+			if (response.status !== 200) {
+				const userData = await response.json();
 				setErrorMessage(userData.info);
 			} else {
-				console.log(userData);
-				localStorage.setItem("agora_token", JSON.stringify(userData.token));
-				setUser(userData);
+				// console.log(userData);
+				// localStorage.setItem("agora_token", JSON.stringify(userData.token));
+				console.log("successfully logged in");
+				setLoggedIn(true);
 			}
 		} catch (err) {
+			console.log(err);
 			alert(err);
 		}
 	};
@@ -52,39 +56,68 @@ function Login() {
 		console.log(errorMessage);
 	}, [errorMessage]);
 
+	// useEffect(() => {
+	// 	console.log(localStorage.getItem("agora_token"));
+	// 	if (localStorage.getItem("agora_token") !== null) {
+	// 		const getUser = async (token) => {
+	// 			try {
+	// 				const response = await fetch("http://localhost:5000/user", {
+	// 					method: "GET",
+	// 					mode: "cors",
+	// 					headers: {
+	// 						"Content-Type": "application/json",
+	// 						Authorization: `Bearer ${token}`,
+	// 					},
+	// 					credentials: "include",
+	// 				});
+
+	// 				const userData = await response.json();
+	// 				console.log(userData);
+	// 				if (userData.success) {
+	// 					navigate("/home");
+	// 					return;
+	// 				}
+	// 			} catch (err) {
+	// 				console.log(err);
+	// 			}
+	// 		};
+
+	// 		const bearerToken = localStorage
+	// 			.getItem("agora_token")
+	// 			.replace(/['"]+/g, "");
+
+	// 		getUser(bearerToken);
+	// 	}
+	// }, [user]);
+
 	useEffect(() => {
-		console.log(localStorage.getItem("agora_token"));
-		if (localStorage.getItem("agora_token") !== null) {
-			const getUser = async (token) => {
-				try {
-					const response = await fetch("http://localhost:5000/user", {
-						method: "GET",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${token}`,
-						},
-						credentials: "include",
-					});
+		const getUser = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/user", {
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				});
 
-					const userData = await response.json();
-					console.log(userData);
-					if (userData.success) {
-						navigate("/home");
-						return;
-					}
-				} catch (err) {
-					console.log(err);
+				const userData = await response.json();
+				console.log(userData);
+				if (userData.success) {
+					setUser(userData);
+					navigate("/home");
+					return;
 				}
-			};
+			} catch (err) {
+				setLoggedIn(false);
+			}
+		};
 
-			const bearerToken = localStorage
-				.getItem("agora_token")
-				.replace(/['"]+/g, "");
-
-			getUser(bearerToken);
+		if (loggedIn) {
+			getUser();
 		}
-	}, [user]);
+	}, [loggedIn, setUser]);
 
 	return (
 		<div className="login-container">

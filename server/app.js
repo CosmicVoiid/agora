@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const indexRouter = require("./routes/index");
 require("./passport-config");
@@ -36,6 +37,7 @@ app.use(
 	})
 );
 
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(
