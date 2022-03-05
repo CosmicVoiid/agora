@@ -7,7 +7,7 @@ function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
-	const [loggedIn, setLoggedIn] = useState(true);
+	// const [loggedIn, setLoggedIn] = useState(true);
 	const { user, setUser } = useContext(UserContext);
 	const navigate = useNavigate();
 
@@ -39,8 +39,7 @@ function Login() {
 			} else {
 				// console.log(userData);
 				// localStorage.setItem("agora_token", JSON.stringify(userData.token));
-				console.log("successfully logged in");
-				setLoggedIn(true);
+				navigate("/home");
 			}
 		} catch (err) {
 			console.log(err);
@@ -51,6 +50,33 @@ function Login() {
 	const googleAuthenticate = async () => {
 		window.open("http://localhost:5000/auth/google", "_self");
 	};
+
+	useEffect(() => {
+		const getUser = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/user", {
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				});
+
+				const userData = await response.json();
+				console.log(userData);
+				if (userData.success) {
+					setUser(userData);
+					navigate("/home");
+					return;
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		getUser();
+	}, []);
 
 	useEffect(() => {
 		console.log(errorMessage);
@@ -89,35 +115,6 @@ function Login() {
 	// 		getUser(bearerToken);
 	// 	}
 	// }, [user]);
-
-	useEffect(() => {
-		const getUser = async () => {
-			try {
-				const response = await fetch("http://localhost:5000/user", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
-
-				const userData = await response.json();
-				console.log(userData);
-				if (userData.success) {
-					setUser(userData);
-					navigate("/home");
-					return;
-				}
-			} catch (err) {
-				setLoggedIn(false);
-			}
-		};
-
-		if (loggedIn) {
-			getUser();
-		}
-	}, [loggedIn, setUser]);
 
 	return (
 		<div className="login-container">

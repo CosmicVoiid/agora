@@ -18,13 +18,17 @@ router.post("/api/signup", authController.signup_POST);
 
 router.get(
 	"/auth/google",
-	passport.authenticate("google", { scope: ["profile", "email"] })
+	passport.authenticate("google", {
+		scope: ["profile", "email"],
+		session: false,
+	})
 );
 
 router.get(
 	"/auth/google/callback",
 	passport.authenticate("google", {
 		failureRedirect: "/login/failed",
+		session: false,
 	}),
 	(req, res, next) => {
 		const googleUser = req.user;
