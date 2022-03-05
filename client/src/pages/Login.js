@@ -37,13 +37,10 @@ function Login() {
 				const userData = await response.json();
 				setErrorMessage(userData.info);
 			} else {
-				// console.log(userData);
-				// localStorage.setItem("agora_token", JSON.stringify(userData.token));
 				navigate("/home");
 			}
 		} catch (err) {
 			console.log(err);
-			alert(err);
 		}
 	};
 
@@ -81,40 +78,6 @@ function Login() {
 	useEffect(() => {
 		console.log(errorMessage);
 	}, [errorMessage]);
-
-	// useEffect(() => {
-	// 	console.log(localStorage.getItem("agora_token"));
-	// 	if (localStorage.getItem("agora_token") !== null) {
-	// 		const getUser = async (token) => {
-	// 			try {
-	// 				const response = await fetch("http://localhost:5000/user", {
-	// 					method: "GET",
-	// 					mode: "cors",
-	// 					headers: {
-	// 						"Content-Type": "application/json",
-	// 						Authorization: `Bearer ${token}`,
-	// 					},
-	// 					credentials: "include",
-	// 				});
-
-	// 				const userData = await response.json();
-	// 				console.log(userData);
-	// 				if (userData.success) {
-	// 					navigate("/home");
-	// 					return;
-	// 				}
-	// 			} catch (err) {
-	// 				console.log(err);
-	// 			}
-	// 		};
-
-	// 		const bearerToken = localStorage
-	// 			.getItem("agora_token")
-	// 			.replace(/['"]+/g, "");
-
-	// 		getUser(bearerToken);
-	// 	}
-	// }, [user]);
 
 	return (
 		<div className="login-container">
