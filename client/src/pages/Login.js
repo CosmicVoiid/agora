@@ -61,7 +61,6 @@ function Login() {
 				});
 
 				const userData = await response.json();
-				console.log(userData);
 				if (userData.success) {
 					setUser(userData);
 					navigate("/home");

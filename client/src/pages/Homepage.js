@@ -9,7 +9,7 @@ function Homepage() {
 
 	useEffect(() => {
 		//Fetch user from api
-		const fetchUser = async (token) => {
+		const fetchUser = async () => {
 			try {
 				const response = await fetch("http://localhost:5000/user", {
 					method: "GET",
@@ -26,9 +26,10 @@ function Homepage() {
 					navigate("/login");
 					return;
 				} else {
-					setUser(userData);
+					setUser(userData.user);
 				}
 			} catch (err) {
+				alert(err);
 				navigate("/login");
 				return;
 			}
@@ -43,9 +44,18 @@ function Homepage() {
 
 	return (
 		<div>
-			<Navbar options={["Yo", "hey"]} />
-			<h1>HomePage</h1>
-			<pre>{JSON.stringify(user)}</pre>
+			{user !== null && (
+				<div>
+					<Navbar
+						name={user.first_name + " " + user.last_name}
+						profileURL={user.profile_picture_url}
+						options={["Yo", "hey"]}
+					/>
+
+					<h1>HomePage</h1>
+					<pre>{JSON.stringify(user)}</pre>
+				</div>
+			)}
 		</div>
 	);
 }

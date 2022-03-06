@@ -80,7 +80,9 @@ function Navbar(props) {
 						/>
 					)}
 				/>
-				<Avatar>H</Avatar>
+				<Avatar alt={props.name} src={props.profileURL}>
+					{props.name[0]}
+				</Avatar>
 			</Box>
 		</nav>
 	);
