@@ -2,6 +2,7 @@ import { React, useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import "./Login.css";
+const google_png = require("../images/btn_google_signin_light_normal_web.png");
 
 function Login() {
 	const [email, setEmail] = useState("");
@@ -104,8 +105,12 @@ function Login() {
 						Log In
 					</button>
 				</form>
-				<button className="btn" onClick={googleAuthenticate}>
-					Sign in with Google
+				<button className="btn-google" onClick={googleAuthenticate}>
+					<img
+						className="google-img"
+						alt="Sign in with Google"
+						src={google_png}
+					></img>
 				</button>
 				<p className="signup-link">
 					Don't have an account? <Link to="/signup">Register</Link>
