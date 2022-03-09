@@ -14,14 +14,17 @@ const styles = {
 	autocomplete: {
 		"& .MuiInputBase-root": {
 			width: "15vw",
+			backgroundColor: "white",
 		},
 		"& .MuiInputBase-input": {
 			width: "15vw",
 			margin: "auto",
 			height: "0rem",
+			color: "#2f3d58",
+			backgroundColor: "white",
 		},
 		"& fieldset": {
-			borderColor: "#2f3d58 !important",
+			borderColor: "#d6a37c !important",
 		},
 	},
 	btn: {
@@ -41,8 +44,8 @@ function Navbar(props) {
 		<nav className="navbar">
 			<div className="logo">
 				<svg
-					width="45"
-					height="45"
+					width="50"
+					height="51"
 					viewBox="0 0 50 51"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +53,7 @@ function Navbar(props) {
 					<rect y="1" width="50" height="50" rx="3" fill="white" />
 					<path
 						d="M30.3896 18.5854L19.7549 51H11.188L25.7168 11.8984H31.1685L30.3896 18.5854ZM39.2251 51L28.5635 18.5854L27.7041 11.8984H33.2095L47.8188 51H39.2251ZM38.7417 36.4443V42.7554H18.0898V36.4443H38.7417Z"
-						fill="#D6A37C"
+						fill="#2F3D58"
 					/>
 				</svg>
 			</div>
