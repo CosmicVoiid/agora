@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Autocomplete,
 	TextField,
@@ -46,13 +46,21 @@ const styles = {
 		color: "#d6a37c",
 		backgroundColor: "#2f3d58",
 		margin: "0 5px",
+		transition: "filter 300ms",
 		":hover": {
 			cursor: "pointer",
+			filter: "brightness(1.2)",
 		},
 	},
 };
 
 function Navbar(props) {
+	const [dropdown, setDropdown] = useState(false);
+
+	const toggleDropdown = () => {
+		dropdown ? setDropdown(false) : setDropdown(true);
+	};
+
 	return (
 		<nav className="navbar">
 			<div className="nav-container__left">
@@ -119,7 +127,23 @@ function Navbar(props) {
 				<p className="username">{props.first_name}</p>
 
 				<FontAwesomeIcon icon="fa-solid fa-comment-dots" />
-				<FontAwesomeIcon icon="fa-solid fa-gear" />
+				<div className="dropdown-container">
+					<FontAwesomeIcon icon="fa-solid fa-gear" onClick={toggleDropdown} />
+					{dropdown && (
+						<div className="dropdown-menu">
+							<ul>
+								<li className="dropdown__list-item">
+									<FontAwesomeIcon icon="fa-solid fa-user" />
+									User Settings
+								</li>
+								<li className="dropdown__list-item">
+									<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
+									Logout
+								</li>
+							</ul>
+						</div>
+					)}
+				</div>
 			</div>
 		</nav>
 	);
