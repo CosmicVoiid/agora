@@ -5,7 +5,7 @@
 
 .navbar {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	padding: 1rem 1rem;
 	background-color: var(--primary-clr);
@@ -31,5 +31,40 @@
 }
 
 .btn-search:hover {
+	cursor: pointer;
+}
+
+.username {
+	color: var(--secondary-clr);
+	margin: 0 5px 0 3px;
+	font-family: "Philosopher", sans-serif;
+	font-size: 1.2rem;
+}
+
+.nav-container__left {
+	display: flex;
+	align-items: center;
+	margin-left: 10rem;
+}
+
+.nav-container__right {
+	display: flex;
+	align-items: center;
+	margin-right: 10rem;
+}
+
+.fa-gear,
+.fa-comment-dots {
+	font-size: 25px;
+	color: var(--secondary-clr);
+	margin: 0 8px;
+}
+
+.fa-comment-dots {
+	margin-left: 25px;
+}
+
+.fa-gear,
+.fa-comment-dots:hover {
 	cursor: pointer;
 }

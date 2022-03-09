@@ -48,6 +48,7 @@ function Homepage() {
 				<div>
 					<Navbar
 						name={user.first_name + " " + user.last_name}
+						first_name={user.first_name}
 						profileURL={user.profile_picture_url}
 						options={["Yo", "hey"]}
 					/>
