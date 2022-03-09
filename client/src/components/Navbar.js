@@ -27,6 +27,9 @@ const styles = {
 		"& fieldset": {
 			borderColor: "#d6a37c !important",
 		},
+		"& 	.MuiAutocomplete-clearIndicator": {
+			color: "#d6a37c",
+		},
 	},
 	btn: {
 		"& MuiButtonBase-root": {
@@ -80,6 +83,7 @@ function Navbar(props) {
 								{...params}
 								placeholder="Find on Agora"
 								InputProps={{
+									...params.InputProps,
 									startAdornment: (
 										<InputAdornment position="start">
 											<IconButton className="btn-search">
