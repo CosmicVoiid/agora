@@ -37,6 +37,11 @@ const styles = {
 		border: "none",
 		padding: "0 !important",
 	},
+	avatar: {
+		border: "1px solid #d6a37c",
+		color: "#d6a37c",
+		backgroundColor: "#2f3d58",
+	},
 };
 
 function Navbar(props) {
@@ -44,8 +49,8 @@ function Navbar(props) {
 		<nav className="navbar">
 			<div className="logo">
 				<svg
-					width="50"
-					height="51"
+					width="45"
+					height="45"
 					viewBox="0 0 50 51"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
@@ -83,9 +88,20 @@ function Navbar(props) {
 						/>
 					)}
 				/>
-				<Avatar alt={props.name} src={props.profileURL}>
-					{props.name[0]}
-				</Avatar>
+
+				{props.profileURL !== undefined && (
+					<Avatar
+						alt={props.name}
+						src={props.profileURL}
+						sx={styles.avatar}
+					></Avatar>
+				)}
+
+				{props.profileURL === undefined && (
+					<Avatar alt={props.name} sx={styles.avatar}>
+						{props.name[0]}
+					</Avatar>
+				)}
 			</Box>
 		</nav>
 	);
