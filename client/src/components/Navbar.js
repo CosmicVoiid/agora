@@ -5,10 +5,10 @@ import {
 	Box,
 	InputAdornment,
 	IconButton,
-	Avatar,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import StyledAvatar from "./StyledAvatar";
 import "./Navbar.css";
 
 //MUI styles
@@ -42,17 +42,6 @@ const styles = {
 		backgroundColor: "inherit",
 		border: "none",
 		padding: "0 !important",
-	},
-	avatar: {
-		border: "1px solid #d6a37c",
-		color: "#d6a37c",
-		backgroundColor: "#2f3d58",
-		margin: "0 5px",
-		transition: "filter 300ms",
-		":hover": {
-			cursor: "pointer",
-			filter: "brightness(1.2)",
-		},
 	},
 };
 
@@ -142,7 +131,7 @@ function Navbar(props) {
 			</div>
 
 			<div className="nav-container__right">
-				{props.profileURL !== undefined && (
+				{/* {props.profileURL !== undefined && (
 					<Avatar
 						alt={props.name}
 						src={props.profileURL}
@@ -154,7 +143,9 @@ function Navbar(props) {
 					<Avatar alt={props.name} sx={styles.avatar}>
 						{props.name[0]}
 					</Avatar>
-				)}
+				)} */}
+
+				<StyledAvatar name={props.name} profileURL={props.profileURL} />
 
 				<p className="username">{props.first_name}</p>
 
