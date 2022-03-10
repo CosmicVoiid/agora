@@ -84,7 +84,7 @@ function Login() {
 			<div className="login-container__details">
 				<h1 className="main-header">Agora</h1>
 				<h2 className="secondary-header">Log In</h2>
-				<form className="login-form" action="">
+				<form className="login-form" action="" onSubmit={authenticate}>
 					<input
 						type="text"
 						name="email"
@@ -101,7 +101,7 @@ function Login() {
 						onChange={changePassword}
 						required
 					/>
-					<button className="btn" type="submit" onClick={authenticate}>
+					<button className="btn" type="submit">
 						Log In
 					</button>
 				</form>

@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { UserContext } from "../UserContext";
+import Navbar from "../components/Navbar";
+import Postform from "../components/Postform";
+import "./Homepage.css";
 
 function Homepage() {
 	const { user, setUser } = useContext(UserContext);
@@ -44,8 +46,11 @@ function Homepage() {
 	return (
 		<div>
 			{user !== null && (
-				<div>
+				<div className="homepage">
 					<Navbar first_name={user.first_name} options={["Yo", "hey", "HOW"]} />
+					<div className="homepage-body-container">
+						<Postform first_name={user.first_name} />
+					</div>
 				</div>
 			)}
 		</div>

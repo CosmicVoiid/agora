@@ -12,7 +12,7 @@ function Signup() {
 	const [errorMessage, setErrorMessage] = useState([]);
 	const [inputError, setInputError] = useState([]);
 	const [formSuccess, setFormSuccess] = useState(false);
-	const { user } = useContext(UserContext);
+	const { user, setUser } = useContext(UserContext);
 	const navigate = useNavigate();
 
 	const changeFirstName = (e) => {
@@ -112,10 +112,30 @@ function Signup() {
 	};
 
 	useEffect(() => {
-		if (user) {
-			navigate("/home");
-		}
-	}, [user, navigate]);
+		const getUser = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/user", {
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				});
+
+				const userData = await response.json();
+				if (userData.success) {
+					setUser(userData);
+					navigate("/home");
+					return;
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		getUser();
+	}, []);
 
 	return (
 		<div className="signup-container">
