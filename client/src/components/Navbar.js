@@ -131,21 +131,7 @@ function Navbar(props) {
 			</div>
 
 			<div className="nav-container__right">
-				{/* {props.profileURL !== undefined && (
-					<Avatar
-						alt={props.name}
-						src={props.profileURL}
-						sx={styles.avatar}
-					></Avatar>
-				)}
-
-				{props.profileURL === undefined && (
-					<Avatar alt={props.name} sx={styles.avatar}>
-						{props.name[0]}
-					</Avatar>
-				)} */}
-
-				<StyledAvatar name={props.name} profileURL={props.profileURL} />
+				<StyledAvatar />
 
 				<p className="username">{props.first_name}</p>
 

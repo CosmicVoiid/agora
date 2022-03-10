@@ -45,15 +45,7 @@ function Homepage() {
 		<div>
 			{user !== null && (
 				<div>
-					<Navbar
-						name={user.first_name + " " + user.last_name}
-						first_name={user.first_name}
-						profileURL={user.profile_picture_url}
-						options={["Yo", "hey", "HOW"]}
-					/>
-
-					<h1>HomePage</h1>
-					<pre>{JSON.stringify(user)}</pre>
+					<Navbar first_name={user.first_name} options={["Yo", "hey", "HOW"]} />
 				</div>
 			)}
 		</div>

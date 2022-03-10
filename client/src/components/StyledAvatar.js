@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar } from "@mui/material";
+import { UserContext } from "../UserContext";
 
 const styles = {
 	avatar: {
@@ -15,20 +16,22 @@ const styles = {
 	},
 };
 
-function StyledAvatar(props) {
+function StyledAvatar() {
+	const { user } = useContext(UserContext);
+
 	return (
 		<div>
-			{props.profileURL !== undefined && (
+			{user.profile_picture_url !== undefined && (
 				<Avatar
-					alt={props.name}
-					src={props.profileURL}
+					alt={user.first_name + " " + user.last_name}
+					src={user.profile_picture_url}
 					sx={styles.avatar}
 				></Avatar>
 			)}
 
-			{props.profileURL === undefined && (
-				<Avatar alt={props.name} sx={styles.avatar}>
-					{props.name[0]}
+			{user.profile_picture_url === undefined && (
+				<Avatar alt={user.first_name + " " + user.last_name} sx={styles.avatar}>
+					{user.first_name[0]}
 				</Avatar>
 			)}
 		</div>
