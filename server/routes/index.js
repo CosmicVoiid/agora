@@ -46,6 +46,11 @@ router.get("/login/failed", (req, res) => {
 	return res.status(401).json({ message: "failed", success: false });
 });
 
+//logout
+router.get("/logout", (req, res) => {
+	res.clearCookie("jwt").end();
+});
+
 //CRUD routes
 router.get(
 	"/user",

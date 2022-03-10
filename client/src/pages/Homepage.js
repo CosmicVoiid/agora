@@ -29,7 +29,6 @@ function Homepage() {
 					setUser(userData.user);
 				}
 			} catch (err) {
-				alert(err);
 				navigate("/login");
 				return;
 			}

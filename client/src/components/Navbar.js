@@ -7,6 +7,7 @@ import {
 	IconButton,
 	Avatar,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Navbar.css";
 
@@ -58,23 +59,39 @@ const styles = {
 //React navbar component
 function Navbar(props) {
 	const [dropdown, setDropdown] = useState(false);
+	const dropdownRef = createRef();
+	const navigate = useNavigate();
 
 	const toggleDropdown = () => {
 		dropdown ? setDropdown(false) : setDropdown(true);
 	};
 
 	const closeDropdown = () => {
-		console.log("onblur");
 		setDropdown(false);
 	};
 
-	const dropdownRef = createRef();
+	const logout = () => {
+		fetch("http://localhost:5000/logout", {
+			method: "GET",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			credentials: "include",
+		})
+			.then(() => {
+				return navigate("/login");
+			})
+			.catch((err) => {
+				alert(err);
+			});
+	};
 
 	useEffect(() => {
 		if (dropdown) {
 			dropdownRef.current.focus();
 		}
-	}, [dropdown]);
+	}, [dropdown, dropdownRef]);
 
 	return (
 		<nav className="navbar">
@@ -150,7 +167,6 @@ function Navbar(props) {
 							tabIndex={0}
 							autoFocus
 							onBlur={closeDropdown}
-							onFocus={() => console.log("foccused")}
 							ref={dropdownRef}
 						>
 							<ul>
@@ -158,7 +174,7 @@ function Navbar(props) {
 									<FontAwesomeIcon icon="fa-solid fa-user" />
 									User Settings
 								</li>
-								<li className="dropdown__list-item">
+								<li className="dropdown__list-item" onClick={logout}>
 									<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
 									Logout
 								</li>
