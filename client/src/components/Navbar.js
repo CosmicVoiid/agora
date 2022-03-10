@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import {
 	Autocomplete,
 	TextField,
@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Navbar.css";
 
+//MUI styles
 const styles = {
 	autocomplete: {
 		"& .MuiInputBase-root": {
@@ -54,12 +55,26 @@ const styles = {
 	},
 };
 
+//React navbar component
 function Navbar(props) {
 	const [dropdown, setDropdown] = useState(false);
 
 	const toggleDropdown = () => {
 		dropdown ? setDropdown(false) : setDropdown(true);
 	};
+
+	const closeDropdown = () => {
+		console.log("onblur");
+		setDropdown(false);
+	};
+
+	const dropdownRef = createRef();
+
+	useEffect(() => {
+		if (dropdown) {
+			dropdownRef.current.focus();
+		}
+	}, [dropdown]);
 
 	return (
 		<nav className="navbar">
@@ -130,7 +145,14 @@ function Navbar(props) {
 				<div className="dropdown-container">
 					<FontAwesomeIcon icon="fa-solid fa-gear" onClick={toggleDropdown} />
 					{dropdown && (
-						<div className="dropdown-menu">
+						<div
+							className="dropdown-menu"
+							tabIndex={0}
+							autoFocus
+							onBlur={closeDropdown}
+							onFocus={() => console.log("foccused")}
+							ref={dropdownRef}
+						>
 							<ul>
 								<li className="dropdown__list-item">
 									<FontAwesomeIcon icon="fa-solid fa-user" />
