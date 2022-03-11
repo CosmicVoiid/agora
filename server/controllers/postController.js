@@ -5,9 +5,11 @@ const Post = require("../models/post");
 
 exports.post_GET = (req, res, next) => {
 	if (req.user) {
-		Post.find().exec((results) => {
-			res.json({ results, success: true });
-		});
+		Post.find()
+			.populate("user")
+			.exec((err, results) => {
+				res.json({ results, success: true });
+			});
 	} else {
 		res.json({ message: "Error", success: false });
 	}
