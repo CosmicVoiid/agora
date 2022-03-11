@@ -15,8 +15,13 @@
 .post-container__body {
 	margin: 1rem;
 	padding: 1rem;
-	color: var(--secondary-clr);
+	color: #eeee;
 	max-width: 95%;
 	background-color: var(--primary-clr);
 	border-radius: 10px;
+}
+
+.header-info {
+	color: var(--secondary-clr);
+	margin-left: 0.8rem;
 }

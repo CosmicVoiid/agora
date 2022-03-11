@@ -16,6 +16,8 @@ const styles = {
 	},
 };
 
+const options = { year: "numeric", month: "long", day: "numeric" };
+
 function Post(props) {
 	return (
 		<div className="post-container">
@@ -32,9 +34,9 @@ function Post(props) {
 						{props.name[0]}
 					</Avatar>
 				)}
-				<div>
+				<div className="header-info">
 					<h3>{props.name}</h3>
-					<p>{props.date}</p>
+					<p>{new Date(props.date).toLocaleDateString(undefined, options)}</p>
 				</div>
 			</div>
 			<div className="post-container__body">{props.body}</div>

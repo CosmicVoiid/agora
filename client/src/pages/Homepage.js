@@ -82,9 +82,9 @@ function Homepage() {
 								return (
 									<Post
 										key={post._id}
-										name={post.user.first_name + " " + post.last_name}
+										name={post.user.first_name + " " + post.user.last_name}
 										profileURL={post.user.profile_picture_url}
-										date={post.date}
+										date={post.time}
 										body={post.body}
 									></Post>
 								);
@@ -92,8 +92,8 @@ function Homepage() {
 								return (
 									<Post
 										key={post._id}
-										name={post.user.first_name + " " + post.last_name}
-										date={post.date}
+										name={post.user.first_name + " " + post.user.last_name}
+										date={post.time}
 										body={post.body}
 									></Post>
 								);
