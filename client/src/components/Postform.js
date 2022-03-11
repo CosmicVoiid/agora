@@ -10,19 +10,36 @@ function Postform(props) {
 		setBody(e.target.value);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		try {
+			fetch("http://localhost:5000/post", {
+				method: "POST",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+				body: JSON.stringify({ body }),
+			});
+		} catch (err) {
+			console.log(err);
+		}
+
+		setBody("");
 	};
 
 	return (
 		<div className="postform">
-			<form className="post-form" action="">
+			<form className="post-form" action="" onSubmit={handleSubmit}>
 				<StyledAvatar />
 				<input
 					type="text"
 					className="postform__text"
 					placeholder={`What's on your mind, ${props.first_name}?`}
 					onChange={changeBody}
+					value={body}
 					required
 				/>
 

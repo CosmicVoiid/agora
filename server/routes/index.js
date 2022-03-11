@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
+const postController = require("../controllers/postController");
 const passport = require("../passport-config");
 
 router.get("/", (req, res) => {
@@ -56,6 +57,18 @@ router.get(
 	"/user",
 	passport.authenticate("jwt", { session: false }),
 	userController.user_GET
+);
+
+router.get(
+	"/post",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_GET
+);
+
+router.post(
+	"/post",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_POST
 );
 
 module.exports = router;
