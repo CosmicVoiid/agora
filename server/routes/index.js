@@ -71,4 +71,16 @@ router.post(
 	postController.post_POST
 );
 
+router.put(
+	"/post/:id",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_PUT
+);
+
+router.delete(
+	"/post/:id",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_DELETE
+);
+
 module.exports = router;

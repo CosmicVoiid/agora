@@ -47,3 +47,45 @@ exports.post_POST = [
 		});
 	},
 ];
+
+exports.post_PUT = [
+	body("body", "Body must not be empty").trim().isLength({ min: 1 }).escape(),
+	(req, res, next) => {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty() || !req.user) {
+			return res.json({
+				message: "There are errors with your request",
+				errors: errors.array(),
+			});
+		}
+
+		const { id } = req.params;
+
+		const post = new Post({
+			user: req.user,
+			body: req.body.body,
+		});
+
+		Post.findByIdAndUpdate(id, post, {}, (err) => {
+			if (err) return next(err);
+		});
+
+		res.json({
+			message: "Successfully updated to database",
+			success: true,
+		});
+	},
+];
+
+exports.post_DELETE = (req, res) => {
+	const { id } = req.params;
+	Post.findByIdAndDelete(id, post, {}, (err) => {
+		if (err) return next(err);
+	});
+
+	res.json({
+		message: "Successfully deleted from database",
+		success: true,
+	});
+};

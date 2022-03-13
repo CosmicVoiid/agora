@@ -136,16 +136,18 @@ function Navbar(props) {
 				<p className="username">{props.first_name}</p>
 
 				<FontAwesomeIcon icon="fa-solid fa-comment-dots" />
-				<div className="dropdown-container">
-					<FontAwesomeIcon icon="fa-solid fa-gear" onClick={toggleDropdown} />
+				<div
+					className="dropdown-container"
+					tabIndex={0}
+					autoFocus
+					onBlur={closeDropdown}
+					ref={dropdownRef}
+				>
+					<div className="fa-icon">
+						<FontAwesomeIcon icon="fa-solid fa-gear" onClick={toggleDropdown} />
+					</div>
 					{dropdown && (
-						<div
-							className="dropdown-menu"
-							tabIndex={0}
-							autoFocus
-							onBlur={closeDropdown}
-							ref={dropdownRef}
-						>
+						<div className="dropdown-menu">
 							<ul>
 								<li className="dropdown__list-item">
 									<FontAwesomeIcon icon="fa-solid fa-user" />

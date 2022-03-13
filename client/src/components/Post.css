@@ -10,6 +10,12 @@
 
 .post-container__header {
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-left {
+	display: flex;
 }
 
 .post-container__body {
@@ -24,4 +30,14 @@
 .header-info {
 	color: var(--secondary-clr);
 	margin-left: 0.8rem;
+}
+
+.fa-ellipsis {
+	padding: 0 1rem;
+	color: var(--secondary-clr);
+	font-size: 1.5rem;
+}
+
+.fa-ellipsis:hover {
+	cursor: pointer;
 }
