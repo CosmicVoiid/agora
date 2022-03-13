@@ -9,6 +9,7 @@ import "./Homepage.css";
 function Homepage() {
 	const { user, setUser } = useContext(UserContext);
 	const [posts, setPosts] = useState([]);
+	const [needsUpdate, setNeedsUpdate] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -65,9 +66,41 @@ function Homepage() {
 	}, []);
 
 	useEffect(() => {
+		if (needsUpdate) {
+			const fetchPosts = async () => {
+				try {
+					const response = await fetch("http://localhost:5000/post", {
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					});
+
+					const postsData = await response.json();
+					console.log(postsData);
+					if (postsData.success) {
+						setPosts(postsData.results);
+					}
+				} catch (err) {
+					console.log(err);
+				}
+			};
+
+			fetchPosts();
+			setNeedsUpdate(false);
+		}
+	}, [needsUpdate]);
+
+	useEffect(() => {
 		console.log(user);
 		console.log(posts);
 	}, [user, posts]);
+
+	const update = () => {
+		setNeedsUpdate(true);
+	};
 
 	return (
 		<div>
@@ -75,7 +108,7 @@ function Homepage() {
 				<div className="homepage">
 					<Navbar first_name={user.first_name} options={["Yo", "hey", "HOW"]} />
 					<div className="homepage-body-container">
-						<Postform first_name={user.first_name} />
+						<Postform first_name={user.first_name} update={update} />
 
 						{posts.map((post) => {
 							if (post.user.profile_picture_url !== undefined) {
@@ -86,15 +119,18 @@ function Homepage() {
 										profileURL={post.user.profile_picture_url}
 										date={post.time}
 										body={post.body}
+										update={update}
 									></Post>
 								);
 							} else {
 								return (
 									<Post
 										key={post._id}
+										postId={post._id}
 										name={post.user.first_name + " " + post.user.last_name}
 										date={post.time}
 										body={post.body}
+										update={update}
 									></Post>
 								);
 							}

@@ -23,6 +23,8 @@ function Postform(props) {
 				credentials: "include",
 				body: JSON.stringify({ body }),
 			});
+
+			props.update();
 		} catch (err) {
 			console.log(err);
 		}
@@ -44,7 +46,7 @@ function Postform(props) {
 				/>
 
 				<button className="submit-btn" type="submit">
-					<FontAwesomeIcon icon="fa-solid fa-paper-plane" />
+					<FontAwesomeIcon icon="fa-solid fa-paper-plane" className="icon" />
 				</button>
 			</form>
 		</div>

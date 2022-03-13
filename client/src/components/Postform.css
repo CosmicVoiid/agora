@@ -10,7 +10,7 @@
 }
 
 .post-form > :nth-child(1) {
-	margin: 0 0.5rem;
+	margin-right: 1rem;
 }
 
 .postform__text {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
+import Postmodal from "./Postmodal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Post.css";
 
@@ -21,6 +22,27 @@ const options = { year: "numeric", month: "long", day: "numeric" };
 
 function Post(props) {
 	const [dropdown, setDropdown] = useState(false);
+	const [useModal, setUseModal] = useState(false);
+	const [modalType, setModalType] = useState([]);
+
+	const toggleDropdown = () => {
+		dropdown ? setDropdown(false) : setDropdown(true);
+	};
+
+	const closeDropdown = () => {
+		setDropdown(false);
+	};
+
+	const toggleModal = (crud) => {
+		if (useModal) {
+			setModalType(["", ""]);
+			setUseModal(false);
+		} else {
+			setDropdown(false);
+			setModalType(crud);
+			setUseModal(true);
+		}
+	};
 
 	return (
 		<div className="post-container">
@@ -44,13 +66,40 @@ function Post(props) {
 					</div>
 				</div>
 				<div className="header-right">
-					<div className="post-dropdown-container">
-						<FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+					<div
+						className="post-dropdown-container"
+						tabIndex={0}
+						autoFocus
+						onBlur={closeDropdown}
+					>
+						<FontAwesomeIcon
+							icon="fa-solid fa-ellipsis"
+							onClick={toggleDropdown}
+							className="icon"
+						/>
 						{dropdown && (
 							<div className="post-dropdown">
-								<ul>
-									<li className="post-dropdown__list-item">Update</li>
-									<li className="post-dropdown__list-item">Delete</li>
+								<ul className="post-dropdown__list">
+									<li
+										className="post-dropdown__list-item"
+										onClick={() => toggleModal(["Edit", props.body])}
+									>
+										<FontAwesomeIcon
+											icon="fa-solid fa-pen-to-square"
+											className="icon"
+										/>
+										<div>Update</div>
+									</li>
+									<li
+										className="post-dropdown__list-item"
+										onClick={() => toggleModal(["Delete", ""])}
+									>
+										<FontAwesomeIcon
+											icon="fa-solid fa-trash-can"
+											className="icon"
+										/>
+										<div>Delete</div>
+									</li>
 								</ul>
 							</div>
 						)}
@@ -58,6 +107,16 @@ function Post(props) {
 				</div>
 			</div>
 			<div className="post-container__body">{props.body}</div>
+
+			{useModal && (
+				<Postmodal
+					crud={modalType[0]}
+					toggle={toggleModal}
+					body={modalType[1]}
+					postId={props.postId}
+					update={props.update}
+				></Postmodal>
+			)}
 		</div>
 	);
 }

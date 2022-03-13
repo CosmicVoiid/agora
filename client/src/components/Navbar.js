@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from "react";
+import React, { useState } from "react";
 import {
 	Autocomplete,
 	TextField,
@@ -48,7 +48,6 @@ const styles = {
 //React navbar component
 function Navbar(props) {
 	const [dropdown, setDropdown] = useState(false);
-	const dropdownRef = createRef();
 	const navigate = useNavigate();
 
 	const toggleDropdown = () => {
@@ -75,12 +74,6 @@ function Navbar(props) {
 				alert(err);
 			});
 	};
-
-	useEffect(() => {
-		if (dropdown) {
-			dropdownRef.current.focus();
-		}
-	}, [dropdown, dropdownRef]);
 
 	return (
 		<nav className="navbar">
@@ -141,11 +134,9 @@ function Navbar(props) {
 					tabIndex={0}
 					autoFocus
 					onBlur={closeDropdown}
-					ref={dropdownRef}
 				>
-					<div className="fa-icon">
-						<FontAwesomeIcon icon="fa-solid fa-gear" onClick={toggleDropdown} />
-					</div>
+					<FontAwesomeIcon icon="fa-solid fa-gear" onClick={toggleDropdown} />
+
 					{dropdown && (
 						<div className="dropdown-menu">
 							<ul>

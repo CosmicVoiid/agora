@@ -41,3 +41,39 @@
 .fa-ellipsis:hover {
 	cursor: pointer;
 }
+
+.post-dropdown {
+	position: absolute;
+	background-color: var(--primary-clr);
+	border: 1px solid var(--secondary-clr);
+	border-radius: 8px;
+	transform: translateX(-70%);
+	padding: 1rem;
+	overflow: hidden;
+}
+
+.post-dropdown__list {
+	list-style: none;
+	padding: 0;
+}
+
+.post-dropdown__list-item {
+	color: var(--secondary-clr);
+	padding: 0.3rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	transition: background 300ms;
+	border-radius: 8px;
+	min-width: 100%;
+}
+
+.post-dropdown__list-item:hover {
+	background-color: #475a81;
+	cursor: pointer;
+}
+
+.fa-pen-to-square,
+.fa-trash-can {
+	margin-right: 0.3rem;
+}

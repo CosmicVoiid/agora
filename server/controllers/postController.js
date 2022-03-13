@@ -2,11 +2,13 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const { body, check, validationResult } = require("express-validator");
 const Post = require("../models/post");
+const { compareSync } = require("bcryptjs");
 
 exports.post_GET = (req, res, next) => {
 	if (req.user) {
 		Post.find()
 			.populate("user")
+			.sort({ time: -1 })
 			.exec((err, results) => {
 				res.json({ results, success: true });
 			});
@@ -57,23 +59,30 @@ exports.post_PUT = [
 			return res.json({
 				message: "There are errors with your request",
 				errors: errors.array(),
+				success: false,
 			});
 		}
 
 		const { id } = req.params;
 
 		const post = new Post({
+			_id: id,
 			user: req.user,
 			body: req.body.body,
 		});
 
 		Post.findByIdAndUpdate(id, post, {}, (err) => {
-			if (err) return next(err);
-		});
-
-		res.json({
-			message: "Successfully updated to database",
-			success: true,
+			if (err)
+				res.json({
+					message: "Error deleting from database",
+					success: false,
+					err,
+				});
+			else
+				res.json({
+					message: "Successfully updated to database",
+					success: true,
+				});
 		});
 	},
 ];
@@ -81,11 +90,15 @@ exports.post_PUT = [
 exports.post_DELETE = (req, res) => {
 	const { id } = req.params;
 	Post.findByIdAndDelete(id, post, {}, (err) => {
-		if (err) return next(err);
-	});
-
-	res.json({
-		message: "Successfully deleted from database",
-		success: true,
+		if (err)
+			res.json({
+				message: "Error deleted from database",
+				success: false,
+			});
+		else
+			res.json({
+				message: "Successfully deleted from database",
+				success: true,
+			});
 	});
 };
