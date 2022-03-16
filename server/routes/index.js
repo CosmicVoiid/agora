@@ -83,4 +83,18 @@ router.delete(
 	postController.post_DELETE
 );
 
+//likes eoutes
+
+router.get(
+	"/post/:id/rating",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_rating_GET
+);
+
+router.post(
+	"/post/:id/rating",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_rating_POST
+);
+
 module.exports = router;

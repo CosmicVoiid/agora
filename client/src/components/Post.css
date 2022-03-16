@@ -6,12 +6,14 @@
 	border-radius: 10px;
 	margin-bottom: 1rem;
 	flex-direction: column;
+	align-items: center;
 }
 
 .post-container__header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	min-width: 95%;
 }
 
 .header-left {
@@ -22,7 +24,7 @@
 	margin: 1rem;
 	padding: 1rem;
 	color: #eeee;
-	max-width: 95%;
+	min-width: 90%;
 	background-color: var(--primary-clr);
 	border-radius: 10px;
 }
@@ -33,7 +35,7 @@
 }
 
 .fa-ellipsis {
-	padding: 0 1rem;
+	padding: 0 0.5rem;
 	color: var(--secondary-clr);
 	font-size: 1.5rem;
 }
@@ -76,4 +78,45 @@
 .fa-pen-to-square,
 .fa-trash-can {
 	margin-right: 0.3rem;
+}
+
+.thumbs {
+	display: flex;
+	align-items: center;
+	min-width: 95%;
+}
+
+.fa-thumbs-up,
+.fa-thumbs-down {
+	color: var(--primary-clr);
+	margin: 0.5rem 0.8rem 0.5rem 1rem;
+}
+
+.fa-thumbs-up:hover,
+.fa-thumbs-down:hover {
+	color: var(--secondary-clr);
+}
+
+.selected {
+	color: var(--secondary-clr);
+	padding: 0;
+}
+
+.rating-number-likes {
+	color: var(--secondary-clr);
+	transform: translate(350%, 5%);
+	position: absolute;
+}
+
+.rating-number-dislikes {
+	color: var(--secondary-clr);
+	transform: translate(800%, 5%);
+	position: absolute;
+}
+
+.post-divider {
+	display: flex;
+	margin: 0 auto;
+	min-width: 95%;
+	border-bottom: 1px solid var(--secondary-clr);
 }

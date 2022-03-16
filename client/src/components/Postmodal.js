@@ -82,7 +82,7 @@ function Postmodal(props) {
 							value={body}
 						/>
 						<button className="form-btn icon" type="submit">
-							Submit
+							Update
 						</button>
 					</form>
 				)}

@@ -115,6 +115,7 @@ function Homepage() {
 								return (
 									<Post
 										key={post._id}
+										postId={post._id}
 										name={post.user.first_name + " " + post.user.last_name}
 										profileURL={post.user.profile_picture_url}
 										date={post.time}
