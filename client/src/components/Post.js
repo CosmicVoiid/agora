@@ -232,11 +232,6 @@ function Post(props) {
 		}
 	}, [updateComments]);
 
-	useEffect(() => {
-		console.log("this is a comment");
-		console.log(comments);
-	}, [comments]);
-
 	return (
 		<div className="post-container">
 			<div className="post-container__header">

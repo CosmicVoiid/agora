@@ -4,6 +4,7 @@ import { UserContext } from "../UserContext";
 import Navbar from "../components/Navbar";
 import Postform from "../components/Postform";
 import Post from "../components/Post";
+import Sidebar from "../components/Sidebar";
 import "./Homepage.css";
 
 function Homepage() {
@@ -105,37 +106,43 @@ function Homepage() {
 	return (
 		<div>
 			{user !== null && (
-				<div className="homepage">
-					<Navbar first_name={user.first_name} options={["Yo", "hey", "HOW"]} />
-					<div className="homepage-body-container">
-						<Postform first_name={user.first_name} update={update} />
+				<div>
+					<div className="homepage">
+						<Navbar
+							first_name={user.first_name}
+							options={["Yo", "hey", "HOW"]}
+						/>
+						<Sidebar />
+						<div className="homepage-body-container">
+							<Postform first_name={user.first_name} update={update} />
 
-						{posts.map((post) => {
-							if (post.user.profile_picture_url !== undefined) {
-								return (
-									<Post
-										key={post._id}
-										postId={post._id}
-										name={post.user.first_name + " " + post.user.last_name}
-										profileURL={post.user.profile_picture_url}
-										date={post.time}
-										body={post.body}
-										update={update}
-									></Post>
-								);
-							} else {
-								return (
-									<Post
-										key={post._id}
-										postId={post._id}
-										name={post.user.first_name + " " + post.user.last_name}
-										date={post.time}
-										body={post.body}
-										update={update}
-									></Post>
-								);
-							}
-						})}
+							{posts.map((post) => {
+								if (post.user.profile_picture_url !== undefined) {
+									return (
+										<Post
+											key={post._id}
+											postId={post._id}
+											name={post.user.first_name + " " + post.user.last_name}
+											profileURL={post.user.profile_picture_url}
+											date={post.time}
+											body={post.body}
+											update={update}
+										></Post>
+									);
+								} else {
+									return (
+										<Post
+											key={post._id}
+											postId={post._id}
+											name={post.user.first_name + " " + post.user.last_name}
+											date={post.time}
+											body={post.body}
+											update={update}
+										></Post>
+									);
+								}
+							})}
+						</div>
 					</div>
 				</div>
 			)}
