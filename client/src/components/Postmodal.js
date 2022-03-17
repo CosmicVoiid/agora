@@ -11,58 +11,111 @@ function Postmodal(props) {
 	const handleEditSubmit = async (e) => {
 		e.preventDefault();
 
-		try {
-			const response = await fetch(
-				`http://localhost:5000/post/${props.postId}`,
-				{
-					method: "PUT",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({ body }),
+		if (props.isComment === true) {
+			try {
+				const response = await fetch(
+					`http://localhost:5000/post/${props.postId}/comments/${props.commentId}`,
+					{
+						method: "PUT",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ body }),
+					}
+				);
+
+				const postData = await response.json();
+				if (!postData.success) {
+					console.log(postData);
 				}
-			);
-
-			const postData = await response.json();
-			if (!postData.success) {
-				console.log(postData);
+			} catch (err) {
+				console.log(err);
 			}
-		} catch (err) {
-			console.log(err);
-		}
 
-		props.toggle();
-		props.update();
+			props.toggle();
+			props.updateComment();
+		} else {
+			try {
+				const response = await fetch(
+					`http://localhost:5000/post/${props.postId}`,
+					{
+						method: "PUT",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ body }),
+					}
+				);
+
+				const postData = await response.json();
+				if (!postData.success) {
+					console.log(postData);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+
+			props.toggle();
+			props.update();
+		}
 	};
 
 	const handleDeleteSubmit = async (e) => {
 		e.preventDefault();
 
-		try {
-			const response = await fetch(
-				`http://localhost:5000/post/${props.postId}`,
-				{
-					method: "DELETE",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
+		if (props.isComment === true) {
+			try {
+				const response = await fetch(
+					`http://localhost:5000/post/${props.postId}/comments/${props.commentId}`,
+					{
+						method: "DELETE",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
+
+				const postData = await response.json();
+				if (!postData.success) {
+					console.log(postData);
 				}
-			);
-
-			const postData = await response.json();
-			if (!postData.success) {
-				console.log(postData);
+			} catch (err) {
+				console.log(err);
 			}
-		} catch (err) {
-			console.log(err);
-		}
 
-		props.toggle();
-		props.update();
+			props.toggle();
+			props.updateComment();
+		} else {
+			try {
+				const response = await fetch(
+					`http://localhost:5000/post/${props.postId}`,
+					{
+						method: "DELETE",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
+
+				const postData = await response.json();
+				if (!postData.success) {
+					console.log(postData);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+
+			props.toggle();
+			props.update();
+		}
 	};
 
 	return (

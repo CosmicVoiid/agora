@@ -103,52 +103,10 @@ exports.post_DELETE = (req, res) => {
 	});
 };
 
-//Likes and Dislike controllers
+//Ratings controllers
 
-exports.post_rating_GET = async (req, res) => {
+exports.post_rating_GET = (req, res) => {
 	const { id } = req.params;
-
-	// try {
-	// const likes = await Post.findById(id).populate({
-	// 	path: "likes",
-	// 	model: Like,
-	// 	populate: { path: "user", select: "_id", model: User },
-	// });
-	// const usersLiked = await Post.findById(id).populate("likes.user");
-
-	// Post.findById(id)
-	// 	.populate({ path: "likes", model: Like })
-	// 	.exec((err, results) => {
-	// 		if (err) {
-	// 			console.log(err);
-	// 		} else {
-	// 			console.log(results);
-	// 		}
-	// 	});
-
-	// const userIncluded = false;
-	// const populatedLikes = likes.populated("user");
-	// console.log(populatedLikes);
-	// const populatedUsers = usersLiked.populated("user");
-	// console.log(populatedUsers);
-
-	// console.log(likes.populatedLikes[1].user);
-
-	// for (let l in populatedLikes) {
-	// 	console.log(populatedLikes[l].user);
-	// 	if (populatedLikes[l].user === req.user._id) {
-	// 		userIncluded = true;
-	// 	}
-	// }
-	// const info = {
-	// 	length: likes.populated("likes").length,
-	// 	userIncluded,
-	// };
-
-	// console.log(info);
-	// } catch (err) {
-	// 	console.log(err);
-	// }
 
 	Post.findById(id)
 		.select("ratings")
@@ -163,7 +121,6 @@ exports.post_rating_GET = async (req, res) => {
 						JSON.stringify(req.user._id) ===
 						JSON.stringify(data.ratings[i].user)
 					) {
-						console.log("worked");
 						userRating = data.ratings[i].rating;
 					}
 
@@ -209,5 +166,95 @@ exports.post_rating_POST = async (req, res) => {
 
 	post.save((err, data) => {
 		if (err) console.log(err);
+		else {
+			res.json({ success: true });
+		}
 	});
+};
+
+// Comments controllers
+
+exports.post_comment_GET = (req, res) => {
+	const { id } = req.params;
+
+	Post.findById(id)
+		.populate("comments.user")
+		.sort({ time: -1 })
+		.exec((err, data) => {
+			if (err) console.log(err);
+			// console.log({ user: data.user, comments: data.comments, success: true });
+
+			res.json({ user: data.user, comments: data.comments, success: true });
+		});
+};
+
+exports.post_comment_POST = async (req, res) => {
+	const { id } = req.params;
+
+	const comment = {
+		post: id,
+		user: req.user._id,
+		body: req.body.body,
+	};
+
+	const post = await Post.findById(id);
+	post.comments.push(comment);
+
+	post.save((err, data) => {
+		if (err) console.log(err);
+		else {
+			console.log(data);
+			res.json({ success: true });
+		}
+	});
+};
+
+exports.post_comment_PUT = async (req, res) => {
+	const { commentId, id } = req.params;
+
+	const post = await Post.findById(id);
+
+	for (i in post.comments) {
+		if (JSON.stringify(post.comments[i]._id) === JSON.stringify(commentId)) {
+			post.comments[i].body = req.body.body;
+			break;
+		}
+	}
+
+	post.save((err, data) => {
+		if (err) console.log(err);
+		else {
+			console.log("worked");
+			console.log(data);
+			res.json({ success: true });
+		}
+	});
+
+	// post.findByIdAndUpdate(
+	// 	id,
+	// 	{ $pull: { comments: { _id: commentId } } },
+	// 	{ safe: true },
+	// 	(err) => {
+	// 		if (err) console.log(err);
+	// 		else {
+	// 			res.status(200).json({ success: true });
+	// 		}
+	// 	}
+	// );
+};
+
+exports.post_comment_DELETE = async (req, res) => {
+	const { commentId, id } = req.params;
+
+	Post.findByIdAndUpdate(
+		id,
+		{ $pull: { comments: { _id: commentId } } },
+		{ safe: true },
+		(err) => {
+			if (err) console.log(err);
+			else {
+				res.status(200).json({ success: true });
+			}
+		}
+	);
 };

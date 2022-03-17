@@ -20,7 +20,7 @@
 	background-color: var(--primary-clr);
 	border-radius: 10px;
 	border: 1px solid var(--secondary-clr);
-	color: rgb(192, 192, 192);
+	color: white;
 	font-size: 0.9rem;
 	transition: border 150ms;
 }

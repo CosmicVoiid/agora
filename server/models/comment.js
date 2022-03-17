@@ -8,6 +8,4 @@ const CommentSchema = new Schema({
 	time: { type: Date, default: Date.now, required: true },
 });
 
-const Comment = mongoose.model("Comment", CommentSchema);
-
-module.exports = Comment;
+module.exports = CommentSchema;

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Avatar } from "@mui/material";
+import StyledAvatar from "./StyledAvatar";
 import Postmodal from "./Postmodal";
+import Comment from "./Comment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Post.css";
 
@@ -27,6 +29,9 @@ function Post(props) {
 	const [likes, setLikes] = useState(0);
 	const [dislikes, setDislikes] = useState(0);
 	const [userRating, setUserRating] = useState("N/A");
+	const [comments, setComments] = useState([]);
+	const [commentText, setCommentText] = useState("");
+	const [updateComments, setUpdateComments] = useState(true);
 
 	const toggleDropdown = () => {
 		dropdown ? setDropdown(false) : setDropdown(true);
@@ -137,6 +142,35 @@ function Post(props) {
 		}
 	};
 
+	const handleCommentText = (e) => {
+		setCommentText(e.target.value);
+	};
+
+	const handleSubmitComment = (e) => {
+		e.preventDefault();
+		try {
+			fetch(`http://localhost:5000/post/${props.postId}/comments`, {
+				method: "POST",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+				body: JSON.stringify({ body: commentText }),
+			}).then(() => {
+				handleUpdateComments();
+			});
+		} catch (err) {
+			console.log(err);
+		}
+
+		setCommentText("");
+	};
+
+	const handleUpdateComments = () => {
+		setUpdateComments(true);
+	};
+
 	useEffect(() => {
 		const getRatings = async () => {
 			try {
@@ -166,6 +200,42 @@ function Post(props) {
 
 		getRatings();
 	}, []);
+
+	useEffect(() => {
+		if (updateComments) {
+			const getComments = async () => {
+				try {
+					const response = await fetch(
+						`http://localhost:5000/post/${props.postId}/comments`,
+						{
+							method: "GET",
+							mode: "cors",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							credentials: "include",
+						}
+					);
+
+					const data = await response.json();
+
+					if (data.success) {
+						setComments(data.comments);
+					}
+				} catch (err) {
+					console.log(err);
+				}
+			};
+
+			getComments();
+			setUpdateComments(false);
+		}
+	}, [updateComments]);
+
+	useEffect(() => {
+		console.log("this is a comment");
+		console.log(comments);
+	}, [comments]);
 
 	return (
 		<div className="post-container">
@@ -249,6 +319,36 @@ function Post(props) {
 				{dislikes !== 0 && <p className="rating-number-dislikes">{dislikes}</p>}
 			</div>
 			<div className="post-divider"></div>
+			{comments.length !== 0 &&
+				comments.map((comment) => {
+					return (
+						<Comment
+							key={comment._id}
+							commentId={comment._id}
+							user={comment.user}
+							comment={comment.body}
+							postId={props.postId}
+							updateComment={handleUpdateComments}
+						/>
+					);
+				})}
+
+			<form className="comment-form" action="" onSubmit={handleSubmitComment}>
+				<StyledAvatar className="comment-avatar" />
+				<input
+					type="text"
+					className="comment-input"
+					placeholder="Say something..."
+					value={commentText}
+					onChange={handleCommentText}
+				/>
+				<button type="submit" className="submit-btn">
+					<FontAwesomeIcon
+						icon="fa-solid fa-paper-plane"
+						className="icon submit-icon"
+					/>
+				</button>
+			</form>
 
 			{useModal && (
 				<Postmodal

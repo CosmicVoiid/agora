@@ -83,7 +83,7 @@ router.delete(
 	postController.post_DELETE
 );
 
-//likes eoutes
+//likes routes
 
 router.get(
 	"/post/:id/rating",
@@ -95,6 +95,32 @@ router.post(
 	"/post/:id/rating",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_rating_POST
+);
+
+//comment routes
+
+router.get(
+	"/post/:id/comments",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_comment_GET
+);
+
+router.post(
+	"/post/:id/comments",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_comment_POST
+);
+
+router.put(
+	"/post/:id/comments/:commentId",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_comment_PUT
+);
+
+router.delete(
+	"/post/:id/comments/:commentId",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_comment_DELETE
 );
 
 module.exports = router;

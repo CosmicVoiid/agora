@@ -1,0 +1,26 @@
+.comment-container {
+	display: flex;
+	min-width: 95%;
+	padding: 1rem;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.comment-box {
+	background-color: var(--primary-clr);
+	width: 90%;
+	margin-left: 1rem;
+	padding: 0.5rem;
+	border-radius: 10px;
+	color: white;
+	font-size: 0.9rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.comment-name {
+	font-size: 1rem;
+	color: var(--secondary-clr);
+	padding-bottom: 0.5rem;
+}
