@@ -97,7 +97,7 @@ function Navbar(props) {
 				<Box className="navbar__inputs">
 					<Autocomplete
 						sx={styles.autocomplete}
-						options={props.options}
+						options={props.users}
 						freeSolo={true}
 						renderInput={(params) => (
 							<TextField

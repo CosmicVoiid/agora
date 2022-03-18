@@ -1,0 +1,19 @@
+.sidebar-friends {
+	position: fixed;
+	height: 100vh;
+	width: 20rem;
+	background-color: var(--primary-clr);
+	right: 0;
+	top: 0;
+}
+
+.sidebar-category {
+	color: var(--secondary-clr);
+	font-size: 1.4rem;
+	box-sizing: border-box;
+	margin-left: 0.8rem;
+}
+
+.sidebar-category__top {
+	margin-top: 6rem;
+}

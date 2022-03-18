@@ -1,6 +1,6 @@
 .sidebar {
 	height: 100vh;
-	width: 15vw;
+	min-width: 20rem;
 	background-color: var(--primary-clr);
 	color: var(--secondary-clr);
 	position: fixed;
@@ -34,6 +34,8 @@
 	padding: 1rem;
 	padding-left: 1.8rem;
 	box-sizing: border-box;
+	color: var(--secondary-clr);
+	text-decoration: none;
 }
 
 .sidebar-element:hover {

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
 const postController = require("../controllers/postController");
+const friendController = require("../controllers/friendController");
 const passport = require("../passport-config");
 
 router.get("/", (req, res) => {
@@ -52,12 +53,20 @@ router.get("/logout", (req, res) => {
 	res.clearCookie("jwt").end();
 });
 
-//CRUD routes
+//user routes
 router.get(
 	"/user",
 	passport.authenticate("jwt", { session: false }),
 	userController.user_GET
 );
+
+router.get(
+	"/users",
+	passport.authenticate("jwt", { session: false }),
+	userController.users_GET
+);
+
+//post routes
 
 router.get(
 	"/post",
@@ -122,5 +131,31 @@ router.delete(
 	passport.authenticate("jwt", { session: false }),
 	postController.post_comment_DELETE
 );
+
+//friend routes
+
+// router.get(
+// 	"/post/:id/comments",
+// 	passport.authenticate("jwt", { session: false }),
+// 	postController.post_comment_GET
+// );
+
+router.post(
+	"/user/:id/friend",
+	passport.authenticate("jwt", { session: false }),
+	friendController.friend_POST
+);
+
+// router.put(
+// 	"/post/:id/comments/:commentId",
+// 	passport.authenticate("jwt", { session: false }),
+// 	postController.post_comment_PUT
+// );
+
+// router.delete(
+// 	"/post/:id/comments/:commentId",
+// 	passport.authenticate("jwt", { session: false }),
+// 	postController.post_comment_DELETE
+// );
 
 module.exports = router;

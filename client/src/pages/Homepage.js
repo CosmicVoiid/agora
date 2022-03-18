@@ -5,10 +5,12 @@ import Navbar from "../components/Navbar";
 import Postform from "../components/Postform";
 import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
+import SidebarFriends from "../components/SidebarFriends";
 import "./Homepage.css";
 
 function Homepage() {
 	const { user, setUser } = useContext(UserContext);
+	const [allUsers, setAllUsers] = useState([]);
 	const [posts, setPosts] = useState([]);
 	const [needsUpdate, setNeedsUpdate] = useState(false);
 	const navigate = useNavigate();
@@ -57,6 +59,34 @@ function Homepage() {
 				console.log(postsData);
 				if (postsData.success) {
 					setPosts(postsData.results);
+					fetchUsers();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		const fetchUsers = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/users", {
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				});
+
+				const postsData = await response.json();
+				console.log(postsData);
+				if (postsData.success) {
+					const usernameArray = [];
+					for (let i in postsData.users) {
+						usernameArray.push(
+							postsData.users[i].first_name + " " + postsData.users[i].last_name
+						);
+					}
+					setAllUsers(usernameArray);
 				}
 			} catch (err) {
 				console.log(err);
@@ -94,11 +124,6 @@ function Homepage() {
 		}
 	}, [needsUpdate]);
 
-	useEffect(() => {
-		console.log(user);
-		console.log(posts);
-	}, [user, posts]);
-
 	const update = () => {
 		setNeedsUpdate(true);
 	};
@@ -108,11 +133,8 @@ function Homepage() {
 			{user !== null && (
 				<div>
 					<div className="homepage">
-						<Navbar
-							first_name={user.first_name}
-							options={["Yo", "hey", "HOW"]}
-						/>
-						<Sidebar />
+						<Navbar first_name={user.first_name} users={allUsers} />
+						<Sidebar defaultSelection="Feed" />
 						<div className="homepage-body-container">
 							<Postform first_name={user.first_name} update={update} />
 
@@ -143,6 +165,7 @@ function Homepage() {
 								}
 							})}
 						</div>
+						<SidebarFriends />
 					</div>
 				</div>
 			)}
