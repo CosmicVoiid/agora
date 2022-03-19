@@ -9,14 +9,16 @@ exports.user_GET = (req, res, next) => {
 	// } else {
 	// 	res.json({ message: "Error", success: false });
 	// }
-	User.findById(req.user._id).exec((err, data) => {
-		if (err) {
-			console.log(err);
-			res.json({ message: "Error", success: "false" });
-		} else {
-			res.json({ user: data, success: true });
-		}
-	});
+	User.findById(req.user._id)
+		.populate("friends")
+		.exec((err, data) => {
+			if (err) {
+				console.log(err);
+				res.json({ message: "Error", success: "false" });
+			} else {
+				res.json({ user: data, success: true });
+			}
+		});
 };
 
 exports.users_GET = (req, res, next) => {

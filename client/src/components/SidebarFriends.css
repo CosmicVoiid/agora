@@ -17,3 +17,18 @@
 .sidebar-category__top {
 	margin-top: 6rem;
 }
+
+.friend-container {
+	display: flex;
+	align-items: center;
+	background-color: var(--tertiary-clr);
+	padding: 0.6rem 0.8rem;
+	max-width: 70%;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+
+.friend-name {
+	color: var(--secondary-clr);
+	margin-left: 0.5rem;
+}

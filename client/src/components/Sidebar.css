@@ -4,6 +4,8 @@
 	background-color: var(--primary-clr);
 	color: var(--secondary-clr);
 	position: fixed;
+	left: 0;
+	top: 0;
 }
 
 .sidebar-header-top-container {

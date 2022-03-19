@@ -134,11 +134,11 @@ router.delete(
 
 //friend routes
 
-// router.get(
-// 	"/post/:id/comments",
-// 	passport.authenticate("jwt", { session: false }),
-// 	postController.post_comment_GET
-// );
+router.get(
+	"/user/:id/friends",
+	passport.authenticate("jwt", { session: false }),
+	friendController.friend_GET
+);
 
 router.post(
 	"/user/:id/friend",
@@ -146,16 +146,16 @@ router.post(
 	friendController.friend_POST
 );
 
-// router.put(
-// 	"/post/:id/comments/:commentId",
-// 	passport.authenticate("jwt", { session: false }),
-// 	postController.post_comment_PUT
-// );
+router.put(
+	"/user/:id/friend",
+	passport.authenticate("jwt", { session: false }),
+	friendController.friend_PUT
+);
 
-// router.delete(
-// 	"/post/:id/comments/:commentId",
-// 	passport.authenticate("jwt", { session: false }),
-// 	postController.post_comment_DELETE
-// );
+router.delete(
+	"/user/:id/friend",
+	passport.authenticate("jwt", { session: false }),
+	friendController.friend_DELETE
+);
 
 module.exports = router;
