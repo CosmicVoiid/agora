@@ -41,7 +41,7 @@ function Sidebar(props) {
 				onClick={() => handleSelected("Posts")}
 			>
 				<FontAwesomeIcon icon="fa-solid fa-inbox" className="icon" />
-				<h3 className="sidebar-header">Posts</h3>
+				<h3 className="sidebar-header">All Posts</h3>
 			</Link>
 		</div>
 	);

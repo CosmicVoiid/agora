@@ -39,7 +39,7 @@ function Users() {
 				if (jsx) return <p>Cancel Request</p>;
 				else return "requested";
 			} else if (user.friends[i].status === "friend") {
-				if (jsx) return <p>Remove friend</p>;
+				if (jsx) return <p>Remove Friend</p>;
 				else return "friend";
 			} else if (
 				user.friends[i].requester === user._id &&

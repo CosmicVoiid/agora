@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 const styles = {
@@ -22,7 +23,7 @@ function StyledAvatar() {
 	return (
 		<div>
 			{(user !== null || user !== undefined) && (
-				<div>
+				<Link to={"/user/" + user._id}>
 					{user.profile_picture_url !== undefined && (
 						<Avatar
 							alt={user.first_name + " " + user.last_name}
@@ -39,7 +40,7 @@ function StyledAvatar() {
 							{user.first_name[0]}
 						</Avatar>
 					)}
-				</div>
+				</Link>
 			)}
 		</div>
 	);

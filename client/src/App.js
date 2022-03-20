@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import AllPosts from "./pages/AllPosts";
 import Users from "./pages/Users";
+import UserDetail from "./pages/UserDetail";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { UserContext } from "./UserContext";
@@ -28,6 +29,7 @@ function App() {
 					<Route exact path="/signup" element={<Signup />} />
 					<Route exact path="/home" element={<Homepage />} />
 					<Route exact path="/users" element={<Users />} />
+					<Route exact path="/user/:id" element={<UserDetail />} />
 					<Route exact path="/posts" element={<AllPosts />} />
 				</Routes>
 			</UserContext.Provider>

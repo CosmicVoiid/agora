@@ -61,6 +61,12 @@ router.get(
 );
 
 router.get(
+	"/user/:id",
+	passport.authenticate("jwt", { session: false }),
+	userController.user_detail_GET
+);
+
+router.get(
 	"/users",
 	passport.authenticate("jwt", { session: false }),
 	userController.users_GET
