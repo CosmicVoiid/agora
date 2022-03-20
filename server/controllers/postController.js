@@ -17,6 +17,39 @@ exports.post_GET = (req, res, next) => {
 	}
 };
 
+exports.post_selection_GET = async (req, res, next) => {
+	const { userId } = req.params;
+
+	let friendArray = [];
+	let idArray = await User.findById(userId).populate({
+		path: "friends",
+		populate: { path: "recipient" },
+	});
+
+	for (let i in idArray.friends) {
+		if (idArray.friends[i].status === "friend") {
+			console.log("worked");
+			friendArray.push(idArray.friends[i].recipient._id);
+		}
+	}
+
+	friendArray.push(userId);
+
+	// res.json({ array: friendArray, success: true });
+
+	// friendArray.push(userId);
+	// console.log(friendArray);
+	// res.json({ array: friendArray, success: true });
+
+	Post.find({ user: { $in: friendArray } })
+		.populate("user")
+		.sort({ time: -1 })
+		.exec((err, results) => {
+			console.log(results);
+			res.json({ results, success: true });
+		});
+};
+
 exports.post_POST = [
 	body("body", "Body must not be empty").trim().isLength({ min: 1 }).escape(),
 	(req, res, next) => {

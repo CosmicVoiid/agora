@@ -36,7 +36,8 @@ function Homepage() {
 					return;
 				} else {
 					setUser(userData.user);
-					fetchPosts();
+					const id = userData.user._id;
+					fetchPosts(id);
 				}
 			} catch (err) {
 				navigate("/login");
@@ -44,9 +45,9 @@ function Homepage() {
 			}
 		};
 
-		const fetchPosts = async () => {
+		const fetchPosts = async (id) => {
 			try {
-				const response = await fetch("http://localhost:5000/post", {
+				const response = await fetch(`http://localhost:5000/post/${id}`, {
 					method: "GET",
 					mode: "cors",
 					headers: {

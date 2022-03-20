@@ -74,6 +74,12 @@ router.get(
 	postController.post_GET
 );
 
+router.get(
+	"/post/:userId",
+	passport.authenticate("jwt", { session: false }),
+	postController.post_selection_GET
+);
+
 router.post(
 	"/post",
 	passport.authenticate("jwt", { session: false }),

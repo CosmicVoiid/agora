@@ -12,11 +12,12 @@ exports.friend_GET = async (req, res) => {
 				if (data.friends[i].status === "friend") {
 					friendArray.push(data.friends[i]);
 				}
+				console.log(data.friends[i].recipient._id);
 			}
 
 			if (err) console.log(err);
 			else {
-				console.log(friendArray);
+				// console.log(friendArray);
 				res.json({ friends: friendArray, success: true });
 			}
 		});
