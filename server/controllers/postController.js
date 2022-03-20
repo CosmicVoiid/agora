@@ -50,6 +50,21 @@ exports.post_selection_GET = async (req, res, next) => {
 		});
 };
 
+exports.post_singleUser_GET = (req, res, next) => {
+	const { id } = req.params;
+
+	Post.find({ user: id })
+		.populate("user")
+		.sort({ time: -1 })
+		.exec((err, results) => {
+			if (err) console.log(err);
+			else {
+				console.log(results);
+				res.json({ results, success: true });
+			}
+		});
+};
+
 exports.post_POST = [
 	body("body", "Body must not be empty").trim().isLength({ min: 1 }).escape(),
 	(req, res, next) => {

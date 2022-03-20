@@ -4,6 +4,10 @@
 	margin: 0;
 }
 
+a {
+	text-decoration: none;
+}
+
 .icon {
 	transition: filter 300ms;
 }
@@ -11,4 +15,8 @@
 .icon:hover {
 	cursor: pointer;
 	filter: brightness(1.2);
+}
+
+.underline {
+	text-decoration: underline !important;
 }

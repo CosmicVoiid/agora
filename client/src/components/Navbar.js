@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
 	Autocomplete,
 	TextField,
@@ -6,7 +6,8 @@ import {
 	InputAdornment,
 	IconButton,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StyledAvatar from "./StyledAvatar";
 import "./Navbar.css";
@@ -47,6 +48,7 @@ const styles = {
 
 //React navbar component
 function Navbar(props) {
+	const { user } = useContext(UserContext);
 	const [dropdown, setDropdown] = useState(false);
 	const navigate = useNavigate();
 
@@ -73,6 +75,10 @@ function Navbar(props) {
 			.catch((err) => {
 				alert(err);
 			});
+	};
+
+	const userDetails = () => {
+		return navigate(`/login/${user._id}`);
 	};
 
 	return (
@@ -128,7 +134,10 @@ function Navbar(props) {
 
 				<p className="username">{props.first_name}</p>
 
-				<FontAwesomeIcon icon="fa-solid fa-comment-dots" />
+				<Link to="/home">
+					<FontAwesomeIcon icon="fa-solid fa-comment-dots" />
+				</Link>
+
 				<div
 					className="dropdown-container"
 					tabIndex={0}
@@ -140,7 +149,7 @@ function Navbar(props) {
 					{dropdown && (
 						<div className="dropdown-menu">
 							<ul>
-								<li className="dropdown__list-item">
+								<li className="dropdown__list-item" onClick={userDetails}>
 									<FontAwesomeIcon icon="fa-solid fa-user" />
 									User Settings
 								</li>

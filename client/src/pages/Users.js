@@ -229,22 +229,24 @@ function Users() {
 					<div className="users-container">
 						<div className="users-box">
 							<div className="users-box__left">
-								{user.profile_picture_url === undefined && (
-									<Avatar
-										alt={user.first_name + " " + user.last_name}
-										sx={styles.avatar}
-									>
-										{user.first_name[0]}
-									</Avatar>
-								)}
+								<Link to={"/user/" + user._id}>
+									{user.profile_picture_url === undefined && (
+										<Avatar
+											alt={user.first_name + " " + user.last_name}
+											sx={styles.avatar}
+										>
+											{user.first_name[0]}
+										</Avatar>
+									)}
 
-								{user.profile_picture_url !== undefined && (
-									<Avatar
-										alt={user.first_name + " " + user.last_name}
-										src={user.profile_picture_url}
-										sx={styles.avatar}
-									/>
-								)}
+									{user.profile_picture_url !== undefined && (
+										<Avatar
+											alt={user.first_name + " " + user.last_name}
+											src={user.profile_picture_url}
+											sx={styles.avatar}
+										/>
+									)}
+								</Link>
 
 								<p className="users-box__name">
 									{user.first_name + " " + user.last_name}
@@ -258,30 +260,32 @@ function Users() {
 									{currentUser._id !== user._id && (
 										<div key={currentUser._id} className="users-box">
 											<div className="users-box__left">
-												{currentUser.profile_picture_url === undefined && (
-													<Avatar
-														alt={
-															currentUser.first_name +
-															" " +
-															currentUser.last_name
-														}
-														sx={styles.avatar}
-													>
-														{currentUser.first_name[0]}
-													</Avatar>
-												)}
+												<Link to={"/user/" + currentUser._id}>
+													{currentUser.profile_picture_url === undefined && (
+														<Avatar
+															alt={
+																currentUser.first_name +
+																" " +
+																currentUser.last_name
+															}
+															sx={styles.avatar}
+														>
+															{currentUser.first_name[0]}
+														</Avatar>
+													)}
 
-												{currentUser.profile_picture_url !== undefined && (
-													<Avatar
-														alt={
-															currentUser.first_name +
-															" " +
-															currentUser.last_name
-														}
-														src={currentUser.profile_picture_url}
-														sx={styles.avatar}
-													/>
-												)}
+													{currentUser.profile_picture_url !== undefined && (
+														<Avatar
+															alt={
+																currentUser.first_name +
+																" " +
+																currentUser.last_name
+															}
+															src={currentUser.profile_picture_url}
+															sx={styles.avatar}
+														/>
+													)}
+												</Link>
 
 												<p className="users-box__name">
 													{currentUser.first_name + " " + currentUser.last_name}

@@ -145,6 +145,7 @@ function Homepage() {
 										<Post
 											key={post._id}
 											postId={post._id}
+											postUserId={post.user._id}
 											name={post.user.first_name + " " + post.user.last_name}
 											profileURL={post.user.profile_picture_url}
 											date={post.time}
@@ -157,6 +158,7 @@ function Homepage() {
 										<Post
 											key={post._id}
 											postId={post._id}
+											postUserId={post.user._id}
 											name={post.user.first_name + " " + post.user.last_name}
 											date={post.time}
 											body={post.body}

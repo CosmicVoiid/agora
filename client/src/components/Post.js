@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
 import StyledAvatar from "./StyledAvatar";
 import Postmodal from "./Postmodal";
 import Comment from "./Comment";
@@ -233,21 +234,23 @@ function Post(props) {
 	}, [updateComments]);
 
 	return (
-		<div className="post-container">
+		<div className={"post-container " + (props.details && "user-details-post")}>
 			<div className="post-container__header">
 				<div className="header-left">
-					{props.profileURL !== undefined && (
-						<Avatar
-							sx={styles.avatar}
-							alt={props.name}
-							src={props.profileURL}
-						></Avatar>
-					)}
-					{props.profileURL === undefined && (
-						<Avatar sx={styles.avatar} alt={props.name}>
-							{props.name[0]}
-						</Avatar>
-					)}
+					<Link to={"/user/" + props.postUserId}>
+						{props.profileURL !== undefined && (
+							<Avatar
+								sx={styles.avatar}
+								alt={props.name}
+								src={props.profileURL}
+							></Avatar>
+						)}
+						{props.profileURL === undefined && (
+							<Avatar sx={styles.avatar} alt={props.name}>
+								{props.name[0]}
+							</Avatar>
+						)}
+					</Link>
 					<div className="header-info">
 						<h3>{props.name}</h3>
 						<p>{new Date(props.date).toLocaleDateString(undefined, options)}</p>

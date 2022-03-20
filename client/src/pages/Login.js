@@ -112,7 +112,10 @@ function Login() {
 					></img>
 				</button>
 				<p className="signup-link">
-					Don't have an account? <Link to="/signup">Register</Link>
+					Don't have an account?{" "}
+					<Link className="underline" to="/signup">
+						Register
+					</Link>
 				</p>
 				<ul className="error-text">
 					{errorMessage !== "" && <li>{errorMessage}</li>}

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Avatar } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContext } from "../UserContext";
+import { Link } from "react-router-dom";
 import Postmodal from "./Postmodal";
 import "./Comment.css";
 
@@ -48,22 +49,24 @@ function Comment(props) {
 
 	return (
 		<div className="comment-container">
-			{props.user.profile_picture_url !== undefined && (
-				<Avatar
-					alt={props.user.first_name + " " + props.user.last_name}
-					src={props.user.profile_picture_url}
-					sx={styles.avatar}
-				></Avatar>
-			)}
+			<Link to={"/user/" + props.user._id}>
+				{props.user.profile_picture_url !== undefined && (
+					<Avatar
+						alt={props.user.first_name + " " + props.user.last_name}
+						src={props.user.profile_picture_url}
+						sx={styles.avatar}
+					></Avatar>
+				)}
 
-			{props.user.profile_picture_url === undefined && (
-				<Avatar
-					alt={props.user.first_name + " " + props.user.last_name}
-					sx={styles.avatar}
-				>
-					{props.user.first_name[0]}
-				</Avatar>
-			)}
+				{props.user.profile_picture_url === undefined && (
+					<Avatar
+						alt={props.user.first_name + " " + props.user.last_name}
+						sx={styles.avatar}
+					>
+						{props.user.first_name[0]}
+					</Avatar>
+				)}
+			</Link>
 
 			<div className="comment-box">
 				<div className="comment-box__content">

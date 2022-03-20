@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
 import "./SidebarFriends.css";
 
 const styles = {
@@ -18,7 +19,7 @@ const styles = {
 };
 
 function SidebarFriends() {
-	const { user, setUser } = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const [allFriends, setAllFriends] = useState([]);
 
 	useEffect(() => {
@@ -60,22 +61,24 @@ function SidebarFriends() {
 			{allFriends.map((friend) => {
 				return (
 					<div key={friend._id} className="friend-container">
-						{friend.profile_picture_url === undefined && (
-							<Avatar
-								alt={friend.first_name + " " + friend.last_name}
-								sx={styles.avatar}
-							>
-								{friend.first_name[0]}
-							</Avatar>
-						)}
+						<Link to={"/user/" + friend._id}>
+							{friend.profile_picture_url === undefined && (
+								<Avatar
+									alt={friend.first_name + " " + friend.last_name}
+									sx={styles.avatar}
+								>
+									{friend.first_name[0]}
+								</Avatar>
+							)}
 
-						{friend.profile_picture_url !== undefined && (
-							<Avatar
-								alt={friend.first_name + " " + friend.last_name}
-								src={friend.profile_picture_url}
-								sx={styles.avatar}
-							/>
-						)}
+							{friend.profile_picture_url !== undefined && (
+								<Avatar
+									alt={friend.first_name + " " + friend.last_name}
+									src={friend.profile_picture_url}
+									sx={styles.avatar}
+								/>
+							)}
+						</Link>
 
 						<h3 className="friend-name">
 							{friend.first_name + " " + friend.last_name}

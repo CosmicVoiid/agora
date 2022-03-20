@@ -192,7 +192,10 @@ function Signup() {
 						Sign Up
 					</button>
 					<p className="login-link">
-						Already have an account? <Link to="/login">Login</Link>
+						Already have an account?{" "}
+						<Link className="underline" to="/login">
+							Login
+						</Link>
 					</p>
 				</form>
 				<ul className="error-list">

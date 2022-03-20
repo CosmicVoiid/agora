@@ -143,6 +143,7 @@ function AllPosts() {
 									return (
 										<Post
 											key={post._id}
+											postUserId={post.user._id}
 											postId={post._id}
 											name={post.user.first_name + " " + post.user.last_name}
 											profileURL={post.user.profile_picture_url}
@@ -155,6 +156,7 @@ function AllPosts() {
 									return (
 										<Post
 											key={post._id}
+											postUserId={post.user._id}
 											postId={post._id}
 											name={post.user.first_name + " " + post.user.last_name}
 											date={post.time}

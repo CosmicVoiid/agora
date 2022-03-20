@@ -103,6 +103,10 @@
 	border-radius: 8px;
 }
 
+.color {
+	color: var(--secondary-clr);
+}
+
 .dropdown__list-item:hover {
 	background-color: #475a81;
 	cursor: pointer;
