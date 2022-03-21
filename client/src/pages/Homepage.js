@@ -83,9 +83,13 @@ function Homepage() {
 				if (postsData.success) {
 					const usernameArray = [];
 					for (let i in postsData.users) {
-						usernameArray.push(
-							postsData.users[i].first_name + " " + postsData.users[i].last_name
-						);
+						usernameArray.push({
+							label:
+								postsData.users[i].first_name +
+								" " +
+								postsData.users[i].last_name,
+							id: postsData.users[i]._id,
+						});
 					}
 					setAllUsers(usernameArray);
 				}

@@ -202,9 +202,10 @@ function Users() {
 					if (data.success) {
 						const usernameArray = [];
 						for (let i in data.users) {
-							usernameArray.push(
-								data.users[i].first_name + " " + data.users[i].last_name
-							);
+							usernameArray.push({
+								label: data.users[i].first_name + " " + data.users[i].last_name,
+								id: data.users[i]._id,
+							});
 						}
 
 						setAllNames(usernameArray);

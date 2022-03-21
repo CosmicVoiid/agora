@@ -46,3 +46,14 @@ exports.user_detail_GET = (req, res) => {
 			}
 		});
 };
+
+exports.user_picture_update_PUT = (req, res) => {
+	const { id } = req.params;
+
+	User.findByIdAndUpdate(id, {
+		$set: { profile_picture_url: req.body.pic_url },
+	}).exec((err, data) => {
+		if (err) console.log(err);
+		else res.json({ success: true });
+	});
+};

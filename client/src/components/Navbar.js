@@ -30,8 +30,11 @@ const styles = {
 		"& fieldset": {
 			borderColor: "#d6a37c !important",
 		},
-		"& 	.MuiAutocomplete-clearIndicator": {
+		"& .MuiAutocomplete-clearIndicator": {
 			color: "#d6a37c",
+		},
+		"& .MuiAutocomplete-endAdornment": {
+			display: "none !important",
 		},
 	},
 	btn: {
@@ -50,6 +53,7 @@ const styles = {
 function Navbar(props) {
 	const { user } = useContext(UserContext);
 	const [dropdown, setDropdown] = useState(false);
+	const [autoValue, setAutoValue] = useState(null);
 	const navigate = useNavigate();
 
 	const toggleDropdown = () => {
@@ -78,13 +82,27 @@ function Navbar(props) {
 	};
 
 	const userDetails = () => {
-		return navigate(`/login/${user._id}`);
+		return navigate(`/user/${user._id}`);
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (autoValue === null) {
+			return;
+		} else {
+			return navigate(`/user/${autoValue.id}`);
+		}
+	};
+
+	const changeAutoValue = (e, value) => {
+		console.log(value);
+		setAutoValue(value);
 	};
 
 	return (
 		<nav className="navbar">
 			<div className="nav-container__left">
-				<div className="logo">
+				<Link to="/home" className="logo">
 					<svg
 						width="45"
 						height="45"
@@ -98,13 +116,19 @@ function Navbar(props) {
 							fill="#2F3D58"
 						/>
 					</svg>
-				</div>
+				</Link>
 
-				<Box className="navbar__inputs">
+				<Box
+					component="form"
+					className="navbar__inputs"
+					onSubmit={handleSubmit}
+				>
 					<Autocomplete
 						sx={styles.autocomplete}
+						value={autoValue}
+						onChange={(event, value) => changeAutoValue(event, value)}
 						options={props.users}
-						freeSolo={true}
+						autoComplete={true}
 						renderInput={(params) => (
 							<TextField
 								className="textfield"
@@ -114,7 +138,7 @@ function Navbar(props) {
 									...params.InputProps,
 									startAdornment: (
 										<InputAdornment position="start">
-											<IconButton className="btn-search">
+											<IconButton className="btn-search" type="submit">
 												<FontAwesomeIcon
 													icon="fa-solid fa-magnifying-glass"
 													className="search-icon"

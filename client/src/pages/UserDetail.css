@@ -2,7 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100vw;
+	max-width: 100vw;
 }
 
 .user-details-container {
@@ -19,7 +19,7 @@
 	margin: 0 auto;
 	justify-content: flex-end;
 	align-items: center;
-	height: 35rem;
+	min-height: 35rem;
 	flex-direction: column;
 	border-radius: 10px;
 }
@@ -28,7 +28,7 @@
 	display: flex;
 	background-color: var(--tertiary-clr);
 	width: 100%;
-	height: 14%;
+	height: 3rem;
 	justify-content: center;
 	align-items: center;
 	font-size: 2rem;
@@ -40,7 +40,7 @@
 
 .details-divider {
 	width: 100%;
-	height: 1%;
+	height: 10px;
 }
 
 .details-container-bottom {
@@ -90,4 +90,105 @@
 	color: var(--secondary-clr);
 	font-size: 1.5rem;
 	margin-left: 1rem;
+}
+
+.user-details-posts-header {
+	display: flex;
+	justify-content: center;
+	font-size: 1.3rem;
+	padding: 0.5rem;
+	color: var(--secondary-clr);
+	font-weight: bold;
+}
+
+.profile-pic-btn-container {
+	padding: 0.5rem;
+	height: 5%;
+	display: flex;
+	justify-content: flex-end;
+	width: 90%;
+}
+
+.profile-pic-btn {
+	padding: 0.2rem 0.5rem;
+	color: var(--secondary-clr);
+	background-color: var(--primary-clr);
+	border-radius: 10px;
+	border: 1px solid var(--secondary-clr);
+	position: absolute;
+	transform: translate(350%, -80%);
+}
+
+.profile-pic-btn:hover {
+	cursor: pointer;
+	background-color: var(--tertiary-clr);
+}
+
+.url-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 3;
+	width: clamp(15rem, 30vw, 30rem);
+	min-height: 10rem;
+	background-color: var(--primary-clr);
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.url-modal-backdrop {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	z-index: 2;
+	background-color: black;
+	opacity: 80%;
+	top: 0;
+	left: 0;
+}
+
+.url-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.url-label {
+	font-size: 1.5rem;
+	color: var(--secondary-clr);
+	display: flex;
+	align-items: center;
+	margin: 1rem;
+}
+
+.url-input {
+	margin-left: 1rem;
+	border-radius: 3px;
+}
+
+.url-input:focus {
+	outline: 3px solid var(--secondary-clr);
+	border-radius: 3px;
+}
+
+.url-submit-btn {
+	color: var(--secondary-clr);
+	background-color: var(--primary-clr);
+	border: 1px solid var(--secondary-clr);
+	border-radius: 3px;
+	padding: 0.3rem 1rem;
+}
+
+.url-submit-btn:hover {
+	background-color: var(--tertiary-clr);
+	cursor: pointer;
+}
+
+.url-error-msg {
+	color: var(--secondary-clr);
+	padding: 1rem;
 }

@@ -17,7 +17,7 @@ const styles = {
 		height: "13rem",
 		fontSize: "3rem",
 		position: "absolute",
-		transform: "translateY(-35%)",
+		transform: "translateY(-38%)",
 		":hover": {
 			cursor: "pointer",
 			filter: "brightness(1.2)",
@@ -46,120 +46,133 @@ function UserDetail() {
 	const [allUsers, setAllUsers] = useState([]);
 	const [allFriends, setAllFriends] = useState([]);
 	const [needsUpdate, setNeedsUpdate] = useState(true);
+	const [fullUpdate, setFullUpdate] = useState(true);
+	const [useModal, setUseModal] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [url, setUrl] = useState("");
 	const { id } = useParams();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const response = await fetch("http://localhost:5000/user", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+	const fetchUser = async () => {
+		try {
+			const response = await fetch("http://localhost:5000/user", {
+				method: "GET",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
 
-				const userData = await response.json();
-				// console.log(`get user user data ${JSON.stringify(userData)}`);
-				if (userData.success === false) {
-					setUser(null);
-					navigate("/login");
-					return;
-				} else {
-					setUser(userData.user);
-					fetchUserDetails();
-				}
-			} catch (err) {
+			const userData = await response.json();
+			// console.log(`get user user data ${JSON.stringify(userData)}`);
+			if (userData.success === false) {
+				setUser(null);
 				navigate("/login");
 				return;
+			} else {
+				setUser(userData.user);
+				fetchUserDetails();
 			}
-		};
+		} catch (err) {
+			navigate("/login");
+			return;
+		}
+	};
 
-		const fetchUserDetails = async () => {
-			try {
-				const response = await fetch(`http://localhost:5000/user/${id}`, {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+	const fetchUserDetails = async () => {
+		try {
+			const response = await fetch(`http://localhost:5000/user/${id}`, {
+				method: "GET",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
 
-				const userData = await response.json();
-				// console.log(`get user user data ${JSON.stringify(userData)}`);
-				if (userData.success === false) {
-					console.log("error");
-				} else {
-					setCurrentUser(userData.user);
-					fetchUsers();
-					getFriends(userData.user._id);
-					console.log(userData);
+			const userData = await response.json();
+			// console.log(`get user user data ${JSON.stringify(userData)}`);
+			if (userData.success === false) {
+				console.log("error");
+			} else {
+				setCurrentUser(userData.user);
+				fetchUsers();
+				getFriends(userData.user._id);
+				console.log(userData);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const fetchUsers = async () => {
+		try {
+			const response = await fetch("http://localhost:5000/users", {
+				method: "GET",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+
+			const postsData = await response.json();
+			console.log(postsData);
+			if (postsData.success) {
+				const usernameArray = [];
+				for (let i in postsData.users) {
+					usernameArray.push({
+						label:
+							postsData.users[i].first_name +
+							" " +
+							postsData.users[i].last_name,
+						id: postsData.users[i]._id,
+					});
 				}
-			} catch (err) {
-				console.log(err);
+				setAllUsers(usernameArray);
 			}
-		};
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
-		const fetchUsers = async () => {
-			try {
-				const response = await fetch("http://localhost:5000/users", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+	const getFriends = async () => {
+		try {
+			const response = await fetch(`http://localhost:5000/user/${id}/friends`, {
+				method: "GET",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
 
-				const postsData = await response.json();
-				console.log(postsData);
-				if (postsData.success) {
-					const usernameArray = [];
-					for (let i in postsData.users) {
-						usernameArray.push(
-							postsData.users[i].first_name + " " + postsData.users[i].last_name
-						);
-					}
-					setAllUsers(usernameArray);
+			const data = await response.json();
+			const friendArray = [];
+			if (data.success) {
+				for (let i in data.friends) {
+					friendArray.push(data.friends[i].recipient);
 				}
-			} catch (err) {
-				console.log(err);
+				setAllFriends(friendArray);
 			}
-		};
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
-		const getFriends = async () => {
-			try {
-				const response = await fetch(
-					`http://localhost:5000/user/${id}/friends`,
-					{
-						method: "GET",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						credentials: "include",
-					}
-				);
-
-				const data = await response.json();
-				const friendArray = [];
-				if (data.success) {
-					for (let i in data.friends) {
-						friendArray.push(data.friends[i].recipient);
-					}
-					setAllFriends(friendArray);
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		};
-
+	useEffect(() => {
 		fetchUser();
 		update();
 	}, [id]);
+
+	useEffect(() => {
+		if (fullUpdate) {
+			fetchUser();
+			update();
+			setFullUpdate(false);
+		}
+	}, [fullUpdate]);
 
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -176,7 +189,6 @@ function UserDetail() {
 				const data = await response.json();
 				if (data.success) {
 					setCurrentUserPosts(data.results);
-					setNeedsUpdate(false);
 				}
 			} catch (err) {
 				console.log(err);
@@ -186,15 +198,53 @@ function UserDetail() {
 		if (needsUpdate) {
 			fetchPosts();
 		}
-	}, [needsUpdate]);
+	}, [id, needsUpdate]);
 
 	const update = () => {
 		setNeedsUpdate(true);
 	};
 
-	useEffect(() => {
-		console.log(currentUserPosts);
-	}, [id]);
+	const updateProfileUrl = async (e) => {
+		e.preventDefault();
+		if (url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+			try {
+				const response = await fetch(
+					`http://localhost:5000/user/picture/${id}`,
+					{
+						method: "PUT",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ pic_url: url }),
+					}
+				);
+
+				const data = await response.json();
+				if (data.success) {
+					console.log("success");
+					setUseModal(false);
+					setErrorMessage("");
+					setFullUpdate(true);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		} else setErrorMessage("Please enter a valid image url");
+	};
+
+	const handleUrl = (e) => {
+		setUrl(e.target.value);
+	};
+
+	const openModal = () => {
+		setUseModal(true);
+	};
+
+	const closeModal = () => {
+		setUseModal(false);
+	};
 
 	return (
 		<div>
@@ -223,6 +273,13 @@ function UserDetail() {
 							<div className="name-container">
 								{currentUser.first_name + " " + currentUser.last_name}
 							</div>
+							{currentUser._id === user._id && (
+								// <div className="profile-pic-btn-container">
+								<button className="profile-pic-btn" onClick={openModal}>
+									Change Profile Picture
+								</button>
+								// </div>
+							)}
 							<div className="details-divider"></div>
 						</div>
 					</div>
@@ -263,6 +320,7 @@ function UserDetail() {
 							})}
 						</div>
 						<div className="posts-container">
+							<div className="user-details-posts-header">Posts</div>
 							{currentUserPosts.map((post) => {
 								if (post.user.profile_picture_url !== undefined) {
 									return (
@@ -297,6 +355,38 @@ function UserDetail() {
 							})}
 						</div>
 					</div>
+					{useModal && (
+						<div className="url-modal-container">
+							<div className="url-modal">
+								<form
+									action=""
+									className="url-form"
+									onSubmit={updateProfileUrl}
+								>
+									<label for="url-input" className="url-label">
+										URL
+										<input
+											name="url-input"
+											type="text"
+											id="url-input"
+											className="url-input"
+											onChange={handleUrl}
+											value={url}
+										></input>
+									</label>
+									<button className="url-submit-btn" type="submit">
+										Submit
+									</button>
+									{errorMessage !== "" && (
+										<ul>
+											<li className="url-error-msg">{errorMessage}</li>
+										</ul>
+									)}
+								</form>
+							</div>
+							<div className="url-modal-backdrop" onClick={closeModal}></div>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

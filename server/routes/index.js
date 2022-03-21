@@ -54,6 +54,12 @@ router.get("/logout", (req, res) => {
 });
 
 //user routes
+router.put(
+	"/user/picture/:id",
+	passport.authenticate("jwt", { session: false }),
+	userController.user_picture_update_PUT
+);
+
 router.get(
 	"/user",
 	passport.authenticate("jwt", { session: false }),
