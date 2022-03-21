@@ -38,6 +38,13 @@
 	align-items: center;
 }
 
+@media screen and (max-width: 1175px) {
+	.postform {
+		min-width: 70%;
+		width: 70%;
+	}
+}
+
 .submit-btn {
 	outline: none;
 	background-color: transparent;

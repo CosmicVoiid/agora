@@ -16,12 +16,12 @@ import "./Navbar.css";
 const styles = {
 	autocomplete: {
 		"& .MuiInputBase-root": {
-			width: "15vw",
+			minWidth: "15rem",
 			backgroundColor: "white",
 			marginLeft: "15px",
 		},
 		"& .MuiInputBase-input": {
-			width: "15vw",
+			minWidth: "10rem",
 			margin: "auto",
 			height: "0rem",
 			color: "#2f3d58",
@@ -54,6 +54,7 @@ function Navbar(props) {
 	const { user } = useContext(UserContext);
 	const [dropdown, setDropdown] = useState(false);
 	const [autoValue, setAutoValue] = useState(null);
+	const [clicked, setClicked] = useState(false);
 	const navigate = useNavigate();
 
 	const toggleDropdown = () => {
@@ -62,6 +63,10 @@ function Navbar(props) {
 
 	const closeDropdown = () => {
 		setDropdown(false);
+	};
+
+	const handleClick = () => {
+		clicked ? setClicked(false) : setClicked(true);
 	};
 
 	const logout = () => {
@@ -118,6 +123,11 @@ function Navbar(props) {
 					</svg>
 				</Link>
 
+				<FontAwesomeIcon
+					icon="fa-solid fa-magnifying-glass"
+					className="search-icon search-toggle"
+				/>
+
 				<Box
 					component="form"
 					className="navbar__inputs"
@@ -129,6 +139,7 @@ function Navbar(props) {
 						onChange={(event, value) => changeAutoValue(event, value)}
 						options={props.users}
 						autoComplete={true}
+						className="autocomplete"
 						renderInput={(params) => (
 							<TextField
 								className="textfield"

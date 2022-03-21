@@ -113,7 +113,7 @@
 	padding: 0.2rem 0.5rem;
 	color: var(--secondary-clr);
 	background-color: var(--primary-clr);
-	border-radius: 10px;
+	border-radius: 5px;
 	border: 1px solid var(--secondary-clr);
 	position: absolute;
 	transform: translate(350%, -80%);

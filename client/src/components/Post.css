@@ -149,3 +149,25 @@
 .submit-icon {
 	padding: 0 !important;
 }
+
+@media screen and (max-width: 1175px) {
+	.post-container {
+		min-width: 70%;
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.comment-form {
+		max-width: 60%;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.comment-input {
+		min-width: 40%;
+	}
+	.comment-form {
+		max-width: 40%;
+	}
+}

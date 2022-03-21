@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./SidebarFriends.css";
 
 const styles = {
@@ -21,6 +22,11 @@ const styles = {
 function SidebarFriends() {
 	const { user } = useContext(UserContext);
 	const [allFriends, setAllFriends] = useState([]);
+	const [clicked, setClicked] = useState(false);
+
+	const handleClick = () => {
+		clicked ? setClicked(false) : setClicked(true);
+	};
 
 	useEffect(() => {
 		const getFriends = async () => {
@@ -52,40 +58,55 @@ function SidebarFriends() {
 
 		getFriends();
 	}, []);
+
 	return (
-		<div className="sidebar-friends">
-			<h1 className="sidebar-category sidebar-category__top">
-				Friend Requests
-			</h1>
-			<h1 className="sidebar-category">Friends</h1>
-			{allFriends.map((friend) => {
-				return (
-					<div key={friend._id} className="friend-container">
-						<Link to={"/user/" + friend._id}>
-							{friend.profile_picture_url === undefined && (
-								<Avatar
-									alt={friend.first_name + " " + friend.last_name}
-									sx={styles.avatar}
-								>
-									{friend.first_name[0]}
-								</Avatar>
-							)}
+		<div>
+			<div
+				className={
+					"friend-bar-menu-container icon " +
+					(clicked && "friend-bar-menu-container-clicked")
+				}
+				onClick={handleClick}
+			>
+				<FontAwesomeIcon icon="fa-solid fa-user-group" />
+			</div>
 
-							{friend.profile_picture_url !== undefined && (
-								<Avatar
-									alt={friend.first_name + " " + friend.last_name}
-									src={friend.profile_picture_url}
-									sx={styles.avatar}
-								/>
-							)}
-						</Link>
+			<div
+				className={"sidebar-friends " + (clicked && "sidebar-friends-clicked")}
+			>
+				<h1 className="sidebar-category sidebar-category__top">
+					Friend Requests
+				</h1>
+				<h1 className="sidebar-category">Friends</h1>
+				{allFriends.map((friend) => {
+					return (
+						<div key={friend._id} className="friend-container">
+							<Link to={"/user/" + friend._id}>
+								{friend.profile_picture_url === undefined && (
+									<Avatar
+										alt={friend.first_name + " " + friend.last_name}
+										sx={styles.avatar}
+									>
+										{friend.first_name[0]}
+									</Avatar>
+								)}
 
-						<h3 className="friend-name">
-							{friend.first_name + " " + friend.last_name}
-						</h3>
-					</div>
-				);
-			})}
+								{friend.profile_picture_url !== undefined && (
+									<Avatar
+										alt={friend.first_name + " " + friend.last_name}
+										src={friend.profile_picture_url}
+										sx={styles.avatar}
+									/>
+								)}
+							</Link>
+
+							<h3 className="friend-name">
+								{friend.first_name + " " + friend.last_name}
+							</h3>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }

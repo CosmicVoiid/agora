@@ -54,3 +54,89 @@
 	padding: 1rem;
 	padding-left: 1.5rem;
 }
+
+.sidebar-hamburger {
+	position: fixed;
+	height: 26px;
+	width: 32px;
+	top: 13px;
+	left: 25px;
+	z-index: 1;
+}
+
+.sidebar-hamburger:hover {
+	cursor: pointer;
+}
+
+.sidebar-hamburger,
+.line {
+	display: block;
+	height: 5px;
+	width: 35px;
+	border-radius: 10px;
+	z-index: 2;
+	display: none;
+}
+
+.line {
+	margin: 0.4rem;
+	background: white;
+}
+
+.sidebar-hamburger,
+.line1 {
+	transform-origin: 0% 0%;
+	transition: transform 0.4s ease-in-out;
+}
+
+.sidebar-hamburger,
+.line2 {
+	transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-hamburger,
+.line3 {
+	transform-origin: 0% 100%;
+	transition: transform 0.4s ease-in-out;
+}
+
+.line1-clicked {
+	transform: rotate(45deg);
+}
+
+.line2-clicked {
+	transform: scaleY(0);
+}
+
+.line3-clicked {
+	transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 1175px) {
+	.sidebar-hamburger,
+	.line {
+		display: block;
+	}
+
+	.sidebar {
+		visibility: hidden;
+		left: -100vw;
+		transition: 500ms ease-in;
+		min-width: 0;
+		width: 0;
+		z-index: 1;
+	}
+
+	.sidebar-clicked {
+		height: 100vh;
+		width: 100vw;
+		background-color: var(--primary-clr);
+		color: var(--secondary-clr);
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		visibility: visible;
+		transition: 500ms;
+	}
+}

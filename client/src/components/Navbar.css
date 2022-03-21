@@ -13,7 +13,7 @@
 	height: 35px;
 	min-width: 100vw;
 	position: fixed;
-	z-index: 1;
+	z-index: 2;
 	box-shadow: -10px 5px 5px black;
 	top: 0;
 	left: 0;
@@ -115,4 +115,36 @@
 .fa-arrow-right-from-bracket,
 .fa-user {
 	margin-right: 1rem;
+}
+
+.search-toggle {
+	display: none;
+}
+
+@media screen and (max-width: 700px) {
+	.MuiInputBase-root {
+		min-width: 10rem !important;
+	}
+	.MuiInputBase-input {
+		min-width: 7rem !important;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.navbar__inputs {
+		display: none !important;
+	}
+
+	.nav-container__right {
+		margin-right: 1.5rem !important;
+	}
+
+	.search-toggle {
+		display: block;
+		padding: 0.45rem;
+		border: 1px solid var(--secondary-clr);
+		background-color: white;
+		border-radius: 3px;
+		margin-left: 1rem;
+	}
 }
