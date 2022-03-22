@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -29,6 +30,7 @@ mongoose
 	});
 
 //middleware
+app.use(helmet());
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(
