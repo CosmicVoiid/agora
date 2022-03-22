@@ -121,6 +121,15 @@
 	display: none;
 }
 
+.search-toggle:hover {
+	cursor: pointer;
+}
+
+.logo {
+	position: relative;
+	left: -8px;
+}
+
 @media screen and (max-width: 700px) {
 	.MuiInputBase-root {
 		min-width: 10rem !important;
@@ -128,15 +137,37 @@
 	.MuiInputBase-input {
 		min-width: 7rem !important;
 	}
+
+	.navbar__inputs {
+		position: relative;
+		left: -10px;
+	}
+
+	.logo {
+		position: relative;
+		left: -15px;
+	}
 }
 
 @media screen and (max-width: 650px) {
 	.navbar__inputs {
-		display: none !important;
+		position: relative;
+		left: -10px;
 	}
 
 	.nav-container__right {
 		margin-right: 1.5rem !important;
+	}
+
+	.logo {
+		position: relative;
+		left: -17px;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.navbar__inputs {
+		display: none;
 	}
 
 	.search-toggle {
@@ -146,5 +177,25 @@
 		background-color: white;
 		border-radius: 3px;
 		margin-left: 1rem;
+		z-index: 2;
+		position: relative;
+		left: -20px;
+	}
+
+	.navbar__inputs-clicked {
+		display: block !important;
+		position: absolute;
+		transform: translateX(73%);
+		z-index: 1;
+		background-color: var(--primary-clr);
+		overflow-x: hidden;
+	}
+
+	.none {
+		display: none !important;
+	}
+
+	.MuiInputBase-root {
+		margin-left: 0 !important;
 	}
 }

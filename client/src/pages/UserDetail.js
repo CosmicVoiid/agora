@@ -17,7 +17,7 @@ const styles = {
 		height: "13rem",
 		fontSize: "3rem",
 		position: "absolute",
-		transform: "translateY(-38%)",
+		transform: "translateY(-50%)",
 		":hover": {
 			cursor: "pointer",
 			filter: "brightness(1.2)",
@@ -271,18 +271,21 @@ function UserDetail() {
 							)}
 
 							<div className="name-container">
-								{currentUser.first_name + " " + currentUser.last_name}
+								<div className="name-container-header">
+									{currentUser.first_name + " " + currentUser.last_name}
+								</div>
 							</div>
-							{currentUser._id === user._id && (
-								// <div className="profile-pic-btn-container">
-								<button className="profile-pic-btn" onClick={openModal}>
-									Change Profile Picture
-								</button>
-								// </div>
-							)}
 							<div className="details-divider"></div>
 						</div>
 					</div>
+
+					{currentUser._id === user._id && (
+						<div className="profile-pic-btn-container">
+							<button className="profile-pic-btn" onClick={openModal}>
+								Change Profile Picture
+							</button>
+						</div>
+					)}
 
 					<div className="details-container-bottom">
 						<div className="friends-container">

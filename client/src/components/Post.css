@@ -161,6 +161,9 @@
 	.comment-form {
 		max-width: 60%;
 	}
+	.comment-input {
+		min-width: 60%;
+	}
 }
 
 @media screen and (max-width: 550px) {

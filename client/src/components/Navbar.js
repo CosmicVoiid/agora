@@ -126,11 +126,12 @@ function Navbar(props) {
 				<FontAwesomeIcon
 					icon="fa-solid fa-magnifying-glass"
 					className="search-icon search-toggle"
+					onClick={handleClick}
 				/>
 
 				<Box
 					component="form"
-					className="navbar__inputs"
+					className={"navbar__inputs " + (clicked && "navbar__inputs-clicked")}
 					onSubmit={handleSubmit}
 				>
 					<Autocomplete
@@ -164,7 +165,7 @@ function Navbar(props) {
 				</Box>
 			</div>
 
-			<div className="nav-container__right">
+			<div className={"nav-container__right " + (clicked && "none")}>
 				<StyledAvatar />
 
 				<p className="username">{props.first_name}</p>
