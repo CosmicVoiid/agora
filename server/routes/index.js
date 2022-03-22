@@ -44,36 +44,36 @@ router.get(
 	}
 );
 
-router.get("/login/failed", (req, res) => {
+router.get("/api/login/failed", (req, res) => {
 	return res.status(401).json({ message: "failed", success: false });
 });
 
 //logout
-router.get("/logout", (req, res) => {
+router.get("/api/logout", (req, res) => {
 	res.clearCookie("jwt").end();
 });
 
 //user routes
 router.put(
-	"/user/picture/:id",
+	"/api/user/picture/:id",
 	passport.authenticate("jwt", { session: false }),
 	userController.user_picture_update_PUT
 );
 
 router.get(
-	"/user",
+	"/api/user",
 	passport.authenticate("jwt", { session: false }),
 	userController.user_GET
 );
 
 router.get(
-	"/user/:id",
+	"/api/user/:id",
 	passport.authenticate("jwt", { session: false }),
 	userController.user_detail_GET
 );
 
 router.get(
-	"/users",
+	"/api/users",
 	passport.authenticate("jwt", { session: false }),
 	userController.users_GET
 );
@@ -81,37 +81,37 @@ router.get(
 //post routes
 
 router.get(
-	"/post",
+	"/api/post",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_GET
 );
 
 router.get(
-	"/post/:userId",
+	"/api/post/:userId",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_selection_GET
 );
 
 router.get(
-	"/post/user/:id",
+	"/api/post/user/:id",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_singleUser_GET
 );
 
 router.post(
-	"/post",
+	"/api/post",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_POST
 );
 
 router.put(
-	"/post/:id",
+	"/api/post/:id",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_PUT
 );
 
 router.delete(
-	"/post/:id",
+	"/api/post/:id",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_DELETE
 );
@@ -119,13 +119,13 @@ router.delete(
 //likes routes
 
 router.get(
-	"/post/:id/rating",
+	"/api/post/:id/rating",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_rating_GET
 );
 
 router.post(
-	"/post/:id/rating",
+	"/api/post/:id/rating",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_rating_POST
 );
@@ -133,25 +133,25 @@ router.post(
 //comment routes
 
 router.get(
-	"/post/:id/comments",
+	"/api/post/:id/comments",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_comment_GET
 );
 
 router.post(
-	"/post/:id/comments",
+	"/api/post/:id/comments",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_comment_POST
 );
 
 router.put(
-	"/post/:id/comments/:commentId",
+	"/api/post/:id/comments/:commentId",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_comment_PUT
 );
 
 router.delete(
-	"/post/:id/comments/:commentId",
+	"/api/post/:id/comments/:commentId",
 	passport.authenticate("jwt", { session: false }),
 	postController.post_comment_DELETE
 );
@@ -159,25 +159,25 @@ router.delete(
 //friend routes
 
 router.get(
-	"/user/:id/friends",
+	"/api/user/:id/friends",
 	passport.authenticate("jwt", { session: false }),
 	friendController.friend_GET
 );
 
 router.post(
-	"/user/:id/friend",
+	"/api/user/:id/friend",
 	passport.authenticate("jwt", { session: false }),
 	friendController.friend_POST
 );
 
 router.put(
-	"/user/:id/friend",
+	"/api/user/:id/friend",
 	passport.authenticate("jwt", { session: false }),
 	friendController.friend_PUT
 );
 
 router.delete(
-	"/user/:id/friend",
+	"/api/user/:id/friend",
 	passport.authenticate("jwt", { session: false }),
 	friendController.friend_DELETE
 );

@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Philosopher:wght@700&family=Source+Sans+3&display=swap");
+
+* {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+.icon {
+	transition: filter 300ms;
+}
+
+.icon:hover {
+	cursor: pointer;
+	filter: brightness(1.2);
+}
+
+.underline {
+	text-decoration: underline !important;
+}
