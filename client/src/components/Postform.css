@@ -8,10 +8,15 @@
 	border-radius: 10px;
 	margin: 2rem;
 	margin-top: 6rem;
+	box-sizing: border-box;
 }
 
 .post-form > :nth-child(1) {
 	margin-right: 1rem;
+}
+
+.postform__text-small {
+	display: none;
 }
 
 .postform__text {
@@ -59,4 +64,28 @@
 
 .fa-paper-plane:hover {
 	cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+	.postform {
+		min-width: 70%;
+		width: 70%;
+	}
+
+	.post-form > :nth-child(1) {
+		margin-right: 0rem;
+	}
+
+	.postform-icon {
+		margin: 0;
+		padding: 0 !important;
+	}
+
+	.postform__text-large {
+		display: none;
+	}
+
+	.postform__text-small {
+		display: block;
+	}
 }

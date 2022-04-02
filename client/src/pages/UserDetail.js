@@ -55,14 +55,17 @@ function UserDetail() {
 
 	const fetchUser = async () => {
 		try {
-			const response = await fetch("http://localhost:5000/user", {
-				method: "GET",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-			});
+			const response = await fetch(
+				"https://agora-atlas.herokuapp.com/api/user",
+				{
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				}
+			);
 
 			const userData = await response.json();
 			// console.log(`get user user data ${JSON.stringify(userData)}`);
@@ -82,14 +85,17 @@ function UserDetail() {
 
 	const fetchUserDetails = async () => {
 		try {
-			const response = await fetch(`http://localhost:5000/user/${id}`, {
-				method: "GET",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-			});
+			const response = await fetch(
+				`https://agora-atlas.herokuapp.com/api/user/${id}`,
+				{
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				}
+			);
 
 			const userData = await response.json();
 			// console.log(`get user user data ${JSON.stringify(userData)}`);
@@ -108,14 +114,17 @@ function UserDetail() {
 
 	const fetchUsers = async () => {
 		try {
-			const response = await fetch("http://localhost:5000/users", {
-				method: "GET",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-			});
+			const response = await fetch(
+				"https://agora-atlas.herokuapp.com/api/users",
+				{
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				}
+			);
 
 			const postsData = await response.json();
 			console.log(postsData);
@@ -139,14 +148,17 @@ function UserDetail() {
 
 	const getFriends = async () => {
 		try {
-			const response = await fetch(`http://localhost:5000/user/${id}/friends`, {
-				method: "GET",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-			});
+			const response = await fetch(
+				`https://agora-atlas.herokuapp.com/api/user/${id}/friends`,
+				{
+					method: "GET",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+				}
+			);
 
 			const data = await response.json();
 			const friendArray = [];
@@ -177,14 +189,17 @@ function UserDetail() {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
-				const response = await fetch(`http://localhost:5000/post/user/${id}`, {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+				const response = await fetch(
+					`https://agora-atlas.herokuapp.com/api/post/user/${id}`,
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
 
 				const data = await response.json();
 				if (data.success) {
@@ -209,7 +224,7 @@ function UserDetail() {
 		if (url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/user/picture/${id}`,
+					`https://agora-atlas.herokuapp.com/api/user/picture/${id}`,
 					{
 						method: "PUT",
 						mode: "cors",

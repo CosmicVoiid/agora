@@ -113,24 +113,37 @@ exports.post_PUT = [
 
 		const { id } = req.params;
 
-		const post = new Post({
-			_id: id,
-			user: req.user,
-			body: req.body.body,
-		});
-
-		Post.findByIdAndUpdate(id, post, {}, (err) => {
+		Post.findById(id, (err, data) => {
 			if (err)
 				res.json({
-					message: "Error deleting from database",
+					message: "Error updating to database",
 					success: false,
 					err,
 				});
-			else
-				res.json({
-					message: "Successfully updated to database",
-					success: true,
+			else {
+				const post = new Post({
+					_id: id,
+					user: req.user,
+					body: req.body.body,
+					ratings: data.ratings,
+					comments: data.comments,
+					time: data.time,
 				});
+
+				Post.findByIdAndUpdate(id, post, {}, (err) => {
+					if (err)
+						res.json({
+							message: "Error updating to database",
+							success: false,
+							err,
+						});
+					else
+						res.json({
+							message: "Successfully updated to database",
+							success: true,
+						});
+				});
+			}
 		});
 	},
 ];

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import StyledAvatar from "./StyledAvatar";
 import Postmodal from "./Postmodal";
 import Comment from "./Comment";
+import { UserContext } from "../UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Post.css";
 
@@ -24,6 +25,7 @@ const styles = {
 const options = { year: "numeric", month: "long", day: "numeric" };
 
 function Post(props) {
+	const { user, setUser } = useContext(UserContext);
 	const [dropdown, setDropdown] = useState(false);
 	const [useModal, setUseModal] = useState(false);
 	const [modalType, setModalType] = useState([]);
@@ -61,15 +63,18 @@ function Post(props) {
 		) {
 			try {
 				console.log(`id: ${props.postId}`);
-				fetch(`http://localhost:5000/post/${props.postId}/rating`, {
-					method: "POST",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({ rating: "Liked" }),
-				});
+				fetch(
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/rating`,
+					{
+						method: "POST",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ rating: "Liked" }),
+					}
+				);
 
 				if (userRating === "Disliked") {
 					setDislikes(dislikes - 1);
@@ -83,15 +88,18 @@ function Post(props) {
 		} else if (userRating === "Liked") {
 			try {
 				console.log(`id: ${props.postId}`);
-				fetch(`http://localhost:5000/post/${props.postId}/rating`, {
-					method: "POST",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({ rating: "N/A" }),
-				});
+				fetch(
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/rating`,
+					{
+						method: "POST",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ rating: "N/A" }),
+					}
+				);
 
 				setUserRating("N/A");
 				setLikes(likes - 1);
@@ -104,15 +112,18 @@ function Post(props) {
 	const dislikePost = () => {
 		if (userRating === "N/A" || userRating === "" || userRating === "Liked") {
 			try {
-				fetch(`http://localhost:5000/post/${props.postId}/rating`, {
-					method: "POST",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({ rating: "Disliked" }),
-				});
+				fetch(
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/rating`,
+					{
+						method: "POST",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ rating: "Disliked" }),
+					}
+				);
 
 				if (userRating === "Liked") {
 					setLikes(likes - 1);
@@ -125,15 +136,18 @@ function Post(props) {
 			}
 		} else if (userRating === "Disliked") {
 			try {
-				fetch(`http://localhost:5000/post/${props.postId}/rating`, {
-					method: "POST",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-					body: JSON.stringify({ rating: "N/A" }),
-				});
+				fetch(
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/rating`,
+					{
+						method: "POST",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+						body: JSON.stringify({ rating: "N/A" }),
+					}
+				);
 
 				setUserRating("N/A");
 				setDislikes(dislikes - 1);
@@ -150,15 +164,18 @@ function Post(props) {
 	const handleSubmitComment = (e) => {
 		e.preventDefault();
 		try {
-			fetch(`http://localhost:5000/post/${props.postId}/comments`, {
-				method: "POST",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ body: commentText }),
-			}).then(() => {
+			fetch(
+				`https://agora-atlas.herokuapp.com/api/post/${props.postId}/comments`,
+				{
+					method: "POST",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ body: commentText }),
+				}
+			).then(() => {
 				handleUpdateComments();
 			});
 		} catch (err) {
@@ -176,7 +193,7 @@ function Post(props) {
 		const getRatings = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/post/${props.postId}/rating`,
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/rating`,
 					{
 						method: "GET",
 						mode: "cors",
@@ -207,7 +224,7 @@ function Post(props) {
 			const getComments = async () => {
 				try {
 					const response = await fetch(
-						`http://localhost:5000/post/${props.postId}/comments`,
+						`https://agora-atlas.herokuapp.com/api/post/${props.postId}/comments`,
 						{
 							method: "GET",
 							mode: "cors",
@@ -257,44 +274,46 @@ function Post(props) {
 					</div>
 				</div>
 				<div className="header-right">
-					<div
-						className="post-dropdown-container"
-						tabIndex={0}
-						autoFocus
-						onBlur={closeDropdown}
-					>
-						<FontAwesomeIcon
-							icon="fa-solid fa-ellipsis"
-							onClick={toggleDropdown}
-							className="icon"
-						/>
-						{dropdown && (
-							<div className="post-dropdown">
-								<ul className="post-dropdown__list">
-									<li
-										className="post-dropdown__list-item"
-										onClick={() => toggleModal(["Edit", props.body])}
-									>
-										<FontAwesomeIcon
-											icon="fa-solid fa-pen-to-square"
-											className="icon"
-										/>
-										<div>Update</div>
-									</li>
-									<li
-										className="post-dropdown__list-item"
-										onClick={() => toggleModal(["Delete", props.body])}
-									>
-										<FontAwesomeIcon
-											icon="fa-solid fa-trash-can"
-											className="icon"
-										/>
-										<div>Delete</div>
-									</li>
-								</ul>
-							</div>
-						)}
-					</div>
+					{user._id === props.postUserId && (
+						<div
+							className="post-dropdown-container"
+							tabIndex={0}
+							autoFocus
+							onBlur={closeDropdown}
+						>
+							<FontAwesomeIcon
+								icon="fa-solid fa-ellipsis"
+								onClick={toggleDropdown}
+								className="icon"
+							/>
+							{dropdown && (
+								<div className="post-dropdown">
+									<ul className="post-dropdown__list">
+										<li
+											className="post-dropdown__list-item"
+											onClick={() => toggleModal(["Edit", props.body])}
+										>
+											<FontAwesomeIcon
+												icon="fa-solid fa-pen-to-square"
+												className="icon"
+											/>
+											<div>Update</div>
+										</li>
+										<li
+											className="post-dropdown__list-item"
+											onClick={() => toggleModal(["Delete", props.body])}
+										>
+											<FontAwesomeIcon
+												icon="fa-solid fa-trash-can"
+												className="icon"
+											/>
+											<div>Delete</div>
+										</li>
+									</ul>
+								</div>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="post-container__body">{props.body}</div>
@@ -302,7 +321,13 @@ function Post(props) {
 			<div className="thumbs">
 				<FontAwesomeIcon
 					icon="fa-solid fa-thumbs-up"
-					className={"icon " + (userRating === "Liked" && "selected")}
+					className={"desktop-icon " + (userRating === "Liked" && "selected")}
+					onClick={likePost}
+				/>
+
+				<FontAwesomeIcon
+					icon="fa-solid fa-thumbs-up"
+					className={"mobile-icon " + (userRating === "Liked" && "selected")}
 					onClick={likePost}
 				/>
 
@@ -310,7 +335,15 @@ function Post(props) {
 
 				<FontAwesomeIcon
 					icon="fa-solid fa-thumbs-down"
-					className={"icon " + (userRating === "Disliked" && "selected")}
+					className={
+						"desktop-icon " + (userRating === "Disliked" && "selected")
+					}
+					onClick={dislikePost}
+				/>
+
+				<FontAwesomeIcon
+					icon="fa-solid fa-thumbs-down"
+					className={"mobile-icon " + (userRating === "Disliked" && "selected")}
 					onClick={dislikePost}
 				/>
 

@@ -73,20 +73,23 @@ function Signup() {
 		// 	}
 		// });
 		try {
-			const response = await fetch("http://localhost:5000/api/signup", {
-				method: "POST",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					first_name: firstName,
-					last_name: lastName,
-					email,
-					password,
-					password_confirm: passwordConfirm,
-				}),
-			});
+			const response = await fetch(
+				"https://agora-atlas.herokuapp.com/api/signup",
+				{
+					method: "POST",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						first_name: firstName,
+						last_name: lastName,
+						email,
+						password,
+						password_confirm: passwordConfirm,
+					}),
+				}
+			);
 
 			const userData = await response.json();
 			if ("errors" in userData) {
@@ -114,14 +117,17 @@ function Signup() {
 	useEffect(() => {
 		const getUser = async () => {
 			try {
-				const response = await fetch("http://localhost:5000/user", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+				const response = await fetch(
+					"https://agora-atlas.herokuapp.com/api/user",
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
 
 				const userData = await response.json();
 				if (userData.success) {

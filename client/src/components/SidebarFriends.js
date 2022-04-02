@@ -32,7 +32,7 @@ function SidebarFriends() {
 		const getFriends = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/user/${user._id}/friends`,
+					`https://agora-atlas.herokuapp.com/api/user/${user._id}/friends`,
 					{
 						method: "GET",
 						mode: "cors",

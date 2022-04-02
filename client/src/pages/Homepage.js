@@ -19,14 +19,17 @@ function Homepage() {
 		//Fetch user from api
 		const fetchUser = async () => {
 			try {
-				const response = await fetch("http://localhost:5000/user", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+				const response = await fetch(
+					"https://agora-atlas.herokuapp.com/api/user",
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
 
 				const userData = await response.json();
 				// console.log(`get user user data ${JSON.stringify(userData)}`);
@@ -47,14 +50,17 @@ function Homepage() {
 
 		const fetchPosts = async (id) => {
 			try {
-				const response = await fetch(`http://localhost:5000/post/${id}`, {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+				const response = await fetch(
+					`https://agora-atlas.herokuapp.com/api/post/${id}`,
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
 
 				const postsData = await response.json();
 				console.log(postsData);
@@ -69,14 +75,17 @@ function Homepage() {
 
 		const fetchUsers = async () => {
 			try {
-				const response = await fetch("http://localhost:5000/users", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+				const response = await fetch(
+					"https://agora-atlas.herokuapp.com/api/users",
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
 
 				const postsData = await response.json();
 				console.log(postsData);
@@ -105,14 +114,17 @@ function Homepage() {
 		if (needsUpdate) {
 			const fetchPosts = async () => {
 				try {
-					const response = await fetch("http://localhost:5000/post", {
-						method: "GET",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						credentials: "include",
-					});
+					const response = await fetch(
+						`https://agora-atlas.herokuapp.com/api/post/${user._id}`,
+						{
+							method: "GET",
+							mode: "cors",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							credentials: "include",
+						}
+					);
 
 					const postsData = await response.json();
 					console.log(postsData);

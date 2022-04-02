@@ -127,7 +127,12 @@
 
 .logo {
 	position: relative;
-	left: -8px;
+	left: -25px;
+}
+
+.navbar__inputs {
+	position: relative;
+	left: -20px;
 }
 
 @media screen and (max-width: 700px) {
@@ -140,19 +145,19 @@
 
 	.navbar__inputs {
 		position: relative;
-		left: -10px;
+		left: -20px;
 	}
 
 	.logo {
 		position: relative;
-		left: -15px;
+		left: -25px;
 	}
 }
 
 @media screen and (max-width: 650px) {
 	.navbar__inputs {
 		position: relative;
-		left: -10px;
+		left: -20px;
 	}
 
 	.nav-container__right {
@@ -161,7 +166,7 @@
 
 	.logo {
 		position: relative;
-		left: -17px;
+		left: -25px;
 	}
 }
 
@@ -179,7 +184,8 @@
 		margin-left: 1rem;
 		z-index: 2;
 		position: relative;
-		left: -20px;
+		left: -30px;
+		min-width: 16px;
 	}
 
 	.navbar__inputs-clicked {
@@ -197,5 +203,16 @@
 
 	.MuiInputBase-root {
 		margin-left: 0 !important;
+	}
+
+	.logo {
+		position: relative;
+		left: -30px;
+	}
+
+	.navbar-avatar,
+	.nav-container__left {
+		margin-left: 5rem !important;
+		width: 4rem !important;
 	}
 }

@@ -7,10 +7,6 @@ const postController = require("../controllers/postController");
 const friendController = require("../controllers/friendController");
 const passport = require("../passport-config");
 
-router.get("/", (req, res) => {
-	res.json({ message: "Welcome to the API" });
-});
-
 // Authentication routes
 router.get("/api/login", authController.login_GET);
 router.post("/api/login", authController.login_POST);
@@ -40,7 +36,7 @@ router.get(
 		);
 		res
 			.cookie("jwt", token, { httpOnly: true })
-			.redirect(`${process.env.CLIENT_URL}/home`);
+			.redirect("https://agora-atlas.herokuapp.com/home");
 	}
 );
 

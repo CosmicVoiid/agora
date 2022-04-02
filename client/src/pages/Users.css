@@ -43,7 +43,8 @@
 
 @media screen and (max-width: 450px) {
 	.users-box {
-		min-width: 17rem;
+		min-width: 15rem;
+		width: 15rem;
 	}
 
 	.friend-btn {

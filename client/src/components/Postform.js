@@ -14,7 +14,7 @@ function Postform(props) {
 		e.preventDefault();
 
 		try {
-			fetch("http://localhost:5000/post", {
+			fetch("https://agora-atlas.herokuapp.com/api/post", {
 				method: "POST",
 				mode: "cors",
 				headers: {
@@ -35,18 +35,30 @@ function Postform(props) {
 	return (
 		<div className="postform">
 			<form className="post-form" action="" onSubmit={handleSubmit}>
-				<StyledAvatar />
+				<StyledAvatar className="postform-avatar" />
 				<input
 					type="text"
-					className="postform__text"
+					className="postform__text postform__text-large"
 					placeholder={`What's on your mind, ${props.first_name}?`}
 					onChange={changeBody}
 					value={body}
 					required
 				/>
 
-				<button className="submit-btn" type="submit">
-					<FontAwesomeIcon icon="fa-solid fa-paper-plane" className="icon" />
+				<input
+					type="text"
+					className="postform__text postform__text-small"
+					placeholder={`Hi, ${props.first_name}!`}
+					onChange={changeBody}
+					value={body}
+					required
+				/>
+
+				<button className="submit-btn postform-submit-btn" type="submit">
+					<FontAwesomeIcon
+						icon="fa-solid fa-paper-plane"
+						className="icon postform-icon"
+					/>
 				</button>
 			</form>
 		</div>

@@ -22,26 +22,24 @@ function StyledAvatar() {
 
 	return (
 		<div>
-			{(user !== null || user !== undefined) && (
-				<Link to={"/user/" + user._id}>
-					{user.profile_picture_url !== undefined && (
-						<Avatar
-							alt={user.first_name + " " + user.last_name}
-							src={user.profile_picture_url}
-							sx={styles.avatar}
-						></Avatar>
-					)}
+			<Link to={"/user/" + user._id}>
+				{user.profile_picture_url !== undefined && (
+					<Avatar
+						alt={user.first_name + " " + user.last_name}
+						src={user.profile_picture_url}
+						sx={styles.avatar}
+					></Avatar>
+				)}
 
-					{user.profile_picture_url === undefined && (
-						<Avatar
-							alt={user.first_name + " " + user.last_name}
-							sx={styles.avatar}
-						>
-							{user.first_name[0]}
-						</Avatar>
-					)}
-				</Link>
-			)}
+				{user.profile_picture_url === undefined && (
+					<Avatar
+						alt={user.first_name + " " + user.last_name}
+						sx={styles.avatar}
+					>
+						{user.first_name[0]}
+					</Avatar>
+				)}
+			</Link>
 		</div>
 	);
 }

@@ -25,5 +25,6 @@
 	padding-bottom: 0.5rem;
 }
 
-@media screen and (max-width: 650px) {
+.comment {
+	font-family: sans-serif;
 }

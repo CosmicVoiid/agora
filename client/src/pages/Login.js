@@ -19,18 +19,51 @@ function Login() {
 		setPassword(e.target.value);
 	};
 
+	const handleDemoUser = async (e) => {
+		try {
+			const response = await fetch(
+				"https://agora-atlas.herokuapp.com/api/login",
+				{
+					method: "POST",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({
+						email: "test@gmail.com",
+						password: "test123",
+					}),
+				}
+			);
+
+			// const userData = await response.json();
+			if (response.status !== 200) {
+				const userData = await response.json();
+				setErrorMessage(userData.info);
+			} else {
+				navigate("/home");
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const authenticate = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await fetch("http://localhost:5000/api/login", {
-				method: "POST",
-				mode: "cors",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-				body: JSON.stringify({ email, password }),
-			});
+			const response = await fetch(
+				"https://agora-atlas.herokuapp.com/api/login",
+				{
+					method: "POST",
+					mode: "cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					credentials: "include",
+					body: JSON.stringify({ email, password }),
+				}
+			);
 
 			// const userData = await response.json();
 			if (response.status !== 200) {
@@ -45,24 +78,27 @@ function Login() {
 	};
 
 	const googleAuthenticate = async () => {
-		window.open("http://localhost:5000/auth/google", "_self");
+		window.open("https://agora-atlas.herokuapp.com/auth/google", "_self");
 	};
 
 	useEffect(() => {
 		const getUser = async () => {
 			try {
-				const response = await fetch("http://localhost:5000/user", {
-					method: "GET",
-					mode: "cors",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					credentials: "include",
-				});
+				const response = await fetch(
+					"https://agora-atlas.herokuapp.com/api/user",
+					{
+						method: "GET",
+						mode: "cors",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						credentials: "include",
+					}
+				);
 
 				const userData = await response.json();
 				if (userData.success) {
-					setUser(userData);
+					setUser(userData.user);
 					navigate("/home");
 					return;
 				}
@@ -117,6 +153,9 @@ function Login() {
 						Register
 					</Link>
 				</p>
+				<button className="btn demo-btn" onClick={handleDemoUser}>
+					Demo User
+				</button>
 				<ul className="error-text">
 					{errorMessage !== "" && <li>{errorMessage}</li>}
 				</ul>

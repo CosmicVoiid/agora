@@ -15,7 +15,7 @@ exports.user_GET = (req, res, next) => {
 		.exec((err, data) => {
 			if (err) {
 				console.log(err);
-				res.json({ message: "Error", success: "false" });
+				res.json({ message: "Error", success: false });
 			} else {
 				res.json({ user: data, success: true });
 			}

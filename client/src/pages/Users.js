@@ -29,6 +29,20 @@ function Users() {
 	const navigate = useNavigate();
 
 	const checkFriendStatus = (id, jsx) => {
+		let found = user.friends.find((friend) => {
+			return friend.recipient === id || friend.requester === id;
+		});
+
+		if (found === undefined) {
+			if (jsx) return <p>Add Friend</p>;
+			else return "add";
+		}
+
+		if (user.friends.length === 0) {
+			if (jsx) return <p>Add Friend</p>;
+			else return "add";
+		}
+
 		for (let i in user.friends) {
 			console.log(user.friends[i]);
 			if (
@@ -38,7 +52,10 @@ function Users() {
 			) {
 				if (jsx) return <p>Cancel Request</p>;
 				else return "requested";
-			} else if (user.friends[i].status === "friend") {
+			} else if (
+				user.friends[i].status === "friend" &&
+				(user.friends[i].recipient === id || user.friends[i].requester === id)
+			) {
 				if (jsx) return <p>Remove Friend</p>;
 				else return "friend";
 			} else if (
@@ -48,15 +65,7 @@ function Users() {
 			) {
 				if (jsx) return <p>Accept Request</p>;
 				else return "pending";
-			} else {
-				if (jsx) return <p>Add Friend</p>;
-				else return "add";
 			}
-		}
-
-		if (user.friends.length === 0) {
-			if (jsx) return <p>Add Friend</p>;
-			else return "add";
 		}
 	};
 
@@ -64,7 +73,7 @@ function Users() {
 		if (checkFriendStatus(id, false) === "add") {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/user/${user._id}/friend`,
+					`https://agora-atlas.herokuapp.com/api/user/${user._id}/friend`,
 					{
 						method: "POST",
 						mode: "cors",
@@ -87,7 +96,7 @@ function Users() {
 		} else if (checkFriendStatus(id, false) === "pending") {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/user/${user._id}/friend`,
+					`https://agora-atlas.herokuapp.com/api/user/${user._id}/friend`,
 					{
 						method: "PUT",
 						mode: "cors",
@@ -110,7 +119,7 @@ function Users() {
 		} else if (checkFriendStatus(id, false) === "requested") {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/user/${user._id}/friend`,
+					`https://agora-atlas.herokuapp.com/api/user/${user._id}/friend`,
 					{
 						method: "DELETE",
 						mode: "cors",
@@ -133,7 +142,7 @@ function Users() {
 		} else if (checkFriendStatus(id, false) === "friend") {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/user/${user._id}/friend`,
+					`https://agora-atlas.herokuapp.com/api/user/${user._id}/friend`,
 					{
 						method: "DELETE",
 						mode: "cors",
@@ -161,14 +170,17 @@ function Users() {
 		if (needsUpdate) {
 			const fetchUser = async () => {
 				try {
-					const response = await fetch("http://localhost:5000/user", {
-						method: "GET",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						credentials: "include",
-					});
+					const response = await fetch(
+						"https://agora-atlas.herokuapp.com/api/user",
+						{
+							method: "GET",
+							mode: "cors",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							credentials: "include",
+						}
+					);
 
 					const userData = await response.json();
 					// console.log(`get user user data ${JSON.stringify(userData)}`);
@@ -188,14 +200,17 @@ function Users() {
 
 			const fetchUsers = async () => {
 				try {
-					const response = await fetch("http://localhost:5000/users", {
-						method: "GET",
-						mode: "cors",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						credentials: "include",
-					});
+					const response = await fetch(
+						"https://agora-atlas.herokuapp.com/api/users",
+						{
+							method: "GET",
+							mode: "cors",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							credentials: "include",
+						}
+					);
 
 					const data = await response.json();
 					console.log(data.users);

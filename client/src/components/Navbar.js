@@ -70,7 +70,7 @@ function Navbar(props) {
 	};
 
 	const logout = () => {
-		fetch("http://localhost:5000/logout", {
+		fetch("https://agora-atlas.herokuapp.com/api/logout", {
 			method: "GET",
 			mode: "cors",
 			headers: {
@@ -166,7 +166,7 @@ function Navbar(props) {
 			</div>
 
 			<div className={"nav-container__right " + (clicked && "none")}>
-				<StyledAvatar />
+				<StyledAvatar className="navbar-avatar" />
 
 				<p className="username">{props.first_name}</p>
 

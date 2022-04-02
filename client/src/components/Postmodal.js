@@ -14,7 +14,7 @@ function Postmodal(props) {
 		if (props.isComment === true) {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/post/${props.postId}/comments/${props.commentId}`,
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/comments/${props.commentId}`,
 					{
 						method: "PUT",
 						mode: "cors",
@@ -39,7 +39,7 @@ function Postmodal(props) {
 		} else {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/post/${props.postId}`,
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}`,
 					{
 						method: "PUT",
 						mode: "cors",
@@ -70,7 +70,7 @@ function Postmodal(props) {
 		if (props.isComment === true) {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/post/${props.postId}/comments/${props.commentId}`,
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}/comments/${props.commentId}`,
 					{
 						method: "DELETE",
 						mode: "cors",
@@ -94,7 +94,7 @@ function Postmodal(props) {
 		} else {
 			try {
 				const response = await fetch(
-					`http://localhost:5000/post/${props.postId}`,
+					`https://agora-atlas.herokuapp.com/api/post/${props.postId}`,
 					{
 						method: "DELETE",
 						mode: "cors",

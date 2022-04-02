@@ -3,7 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const cors = require("cors");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -31,7 +31,9 @@ mongoose
 	});
 
 //middleware
-app.use(helmet());
+// app.use(helmet({ contentSecurityPolicy: false }));
+// app.use(helmet.crossOriginResourcePolicy({ policy: "same-site" }));
+
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(
@@ -41,7 +43,7 @@ app.use(
 		credentials: true,
 	})
 );
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use("/", indexRouter);
 if (process.env.NODE_ENV === "production") {

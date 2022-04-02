@@ -133,6 +133,7 @@
 	background-color: var(--clr-tertiary);
 	margin-top: 1.5rem;
 	font-family: "Source Sans 3", sans-serif;
+	cursor: pointer;
 }
 
 .btn:hover {
@@ -166,4 +167,9 @@
 	font-size: var(--fs-300);
 	margin-top: 1rem;
 	padding: 0 1rem;
+}
+
+.demo-btn {
+	width: auto !important;
+	padding: 0.3rem 1rem !important;
 }

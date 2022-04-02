@@ -77,7 +77,8 @@
 }
 
 .user-details-post {
-	min-width: 1rem !important;
+	width: 100% !important;
+	box-sizing: border-box;
 }
 
 .friends-container-header {
@@ -198,14 +199,12 @@
 	padding: 1rem;
 }
 
-@media screen and (max-width: 1175px) {
+@media screen and (max-width: 1300px) {
 	.user-details-post {
-		min-width: 100% !important;
+		width: 100% !important;
 		box-sizing: border-box !important;
 	}
-}
 
-@media screen and (max-width: 870px) {
 	.details-container-bottom {
 		margin-top: 1rem;
 		display: flex;

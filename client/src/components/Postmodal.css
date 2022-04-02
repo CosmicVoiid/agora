@@ -75,3 +75,9 @@
 .form-btn:hover {
 	cursor: pointer;
 }
+
+@media screen and (max-width: 900px) {
+	.modal-textarea {
+		max-width: 90% !important;
+	}
+}
