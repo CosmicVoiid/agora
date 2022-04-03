@@ -1,6 +1,9 @@
 <pre>
 Agora is fullstack social media app built using MongoDB, Express, React, and NodeJS!
 
+Click the lnk for a live demo!
+https://agora-atlas.herokuapp.com
+
 
 Agora's features include:
 -creating an account
